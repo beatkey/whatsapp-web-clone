@@ -1,5 +1,4 @@
 export default function Message({value, activeMessageHandle, index, activeMessage}) {
-    console.log(activeMessage)
     const Avatar = ({type}) => {
         if (type === "svg-group") {
             return (
@@ -35,23 +34,61 @@ export default function Message({value, activeMessageHandle, index, activeMessag
         }
     }
 
+    const Status = ({type}) => {
+        if (type !== undefined) {
+            switch (type) {
+                case "read":
+                    return (
+                        <div className="mr-0.5">
+                            <svg viewBox="0 0 14 18" width="14" height="18" className="">
+                                <path fill="currentColor"
+                                      d="m12.502 5.035-.57-.444a.434.434 0 0 0-.609.076l-6.39 8.198a.38.38 0 0 1-.577.039l-2.614-2.556a.435.435 0 0 0-.614.007l-.505.516a.435.435 0 0 0 .007.614l3.887 3.8a.38.38 0 0 0 .577-.039l7.483-9.602a.435.435 0 0 0-.075-.609z"></path>
+                            </svg>
+                        </div>
+                    )
+                case "photo":
+                    return (
+                        <div className="mr-1">
+                            <svg viewBox="0 0 16 20" width="16" height="20" className="">
+                                <path fill="currentColor"
+                                      d="M13.822 4.668H7.14l-1.068-1.09a1.068 1.068 0 0 0-.663-.278H3.531c-.214 0-.51.128-.656.285L1.276 5.296c-.146.157-.266.46-.266.675v1.06l-.001.003v6.983c0 .646.524 1.17 1.17 1.17h11.643a1.17 1.17 0 0 0 1.17-1.17v-8.18a1.17 1.17 0 0 0-1.17-1.169zm-5.982 8.63a3.395 3.395 0 1 1 0-6.79 3.395 3.395 0 0 1 0 6.79zm0-5.787a2.392 2.392 0 1 0 0 4.784 2.392 2.392 0 0 0 0-4.784z"></path>
+                            </svg>
+                        </div>
+                    )
+            }
+        } else {
+            return (
+                ""
+            );
+        }
+    }
+
     return (
         <div onClick={() => activeMessageHandle(index)}
-             className={"Message cursor-pointer flex items-center py-3 px-3.5 " + (activeMessage === index ? "bg-[#2a3942]" : "hover:bg-[#202c33]")}>
+             className={"Message group cursor-pointer flex items-center pl-3.5 " + (activeMessage === index ? "bg-[#2a3942]" : "hover:bg-[#202c33]")}>
             <div className="Img mr-3">
                 <Avatar type={value.image}/>
             </div>
-            <div className="Details">
-                <div className="Name text-[#e9edef] text-[17px]">
-                    {value.name}
+            <div className="w-full border-t border-[rgba(134,150,160,0.15)] group-hover:border-[transparent] py-3 pr-3.5">
+                <div className="Top flex items-center justify-between text-[#e9edef] text-[17px]">
+                    <div>
+                        {value.name}
+                    </div>
+                    <div className="Time text-[12px] text-[#8696a0]">
+                        {value.time}
+                    </div>
                 </div>
-                <div className="Detail text-[#8696a0] text-[14px]">
-                    {value.message}
-                </div>
-            </div>
-            <div className="Right self-start ml-auto">
-                <div className="Time text-[12px] text-[#8696a0]">
-                    {value.time}
+                <div className="Detail relative flex justify-between text-[#8696a0] text-[14px]">
+                    <div className="flex items-center">
+                        <Status type={value.status}/>
+                        {value.message}
+                    </div>
+                    <div className="absolute right-[-50px] group-hover:right-0">
+                        <svg viewBox="0 0 19 20" width="19" height="20" className="">
+                            <path fill="currentColor"
+                                  d="m3.8 6.7 5.7 5.7 5.7-5.7 1.6 1.6-7.3 7.2-7.3-7.2 1.6-1.6z"></path>
+                        </svg>
+                    </div>
                 </div>
             </div>
         </div>

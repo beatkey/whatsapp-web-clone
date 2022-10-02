@@ -8,13 +8,15 @@ export default function Messages(){
             "image": "svg-group",
             "name": "Kawasaki",
             "message": "Lorem ipsum dolor sit amet.",
-            "time": "yesterday"
+            "time": "yesterday",
+            "status": "read"
         },
         {
             "image": "svg-solo",
             "name": "BMW",
             "message": "S1000RR",
-            "time": "12:30 am"
+            "time": "12:30 am",
+            "status": "photo"
         },
     ]
 
@@ -23,7 +25,7 @@ export default function Messages(){
     }
 
     return (
-        <div className="Messages overflow-y-scroll overflow scroolbar">
+        <div className="Messages overflow-y-scroll overflow-x-hidden overflow scroolbar">
             <div className="Archived cursor-pointer flex items-center py-3 px-7">
                 <div className="mr-7">
                     <svg width="18" height="18" viewBox="0 0 20 20" fill="none" className="">
