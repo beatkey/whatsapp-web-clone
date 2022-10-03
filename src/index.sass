@@ -7,15 +7,33 @@
 @import url('http://fonts.cdnfonts.com/css/helvetica-255')
 
 body
-   font-family: Segoe UI,Helvetica Neue,Helvetica,Lucida Grande,Arial,Ubuntu,Cantarell,Fira Sans,sans-serif
+   font-family: Segoe UI, Helvetica Neue, Helvetica, Lucida Grande, Arial, Ubuntu, Cantarell, Fira Sans, sans-serif
 
 @layer utilities
    .scroolbar
       scrollbar-color: red white
       scrollbar-width: thin
+
       &::-webkit-scrollbar
          width: 6px
+
       &::-webkit-scrollbar-track
          background-color: theme('colors.color1')
+
       &::-webkit-scrollbar-thumb
          background-color: #374045
+
+
+#basic-menu
+   .MuiPopover-paper
+      border-radius: unset
+      background-color: #233138
+      color: #d1d7db
+
+      ul
+         li
+            font-family: inherit
+
+
+            &:hover
+               background-color: #182229
