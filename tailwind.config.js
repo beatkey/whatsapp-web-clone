@@ -14,7 +14,11 @@ module.exports = {
             'color4': '#101a20',
             'icon': '#8696a0',
         },
-        extend: {},
+        extend: {
+            backgroundImage: {
+                'messagesBg': "url('messages_bg.png')"
+            }
+        },
     },
     plugins: [],
 }

@@ -1,8 +1,12 @@
 import Message from "./Message";
-import {useState} from "react";
+
+import {useSelector, useDispatch} from "react-redux";
+import {setActiveMessage} from "stores/message";
 
 export default function Messages(){
-    const [activeMessage, setActiveMessage] = useState(false)
+    const dispath = useDispatch()
+    const activeMessage = useSelector(state => state.message.activeMessage)
+
     const messages = [
         {
             "image": "svg-group",
@@ -21,7 +25,7 @@ export default function Messages(){
     ]
 
     function activeMessageHandle(index){
-        setActiveMessage(index)
+        dispath(setActiveMessage(index))
     }
 
     return (
