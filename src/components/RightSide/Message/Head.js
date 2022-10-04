@@ -2,7 +2,7 @@ import * as React from "react";
 
 export default function Head(){
     return (
-        <div className="bg-color2 h-[60px] px-4 pr-6 flex items-center justify-between">
+        <div className="bg-color2 h-[60px] px-4 pr-6 flex items-center justify-between border-l border-[rgba(134,150,160,0.15)]">
             <div className="flex items-center text-[#e9edef]">
                 <svg viewBox="0 0 212 212" width="40" height="40" className="mr-3">
                     <path fill="#6a7175"

@@ -2,6 +2,7 @@ import {useSelector} from "react-redux";
 
 import Head from "./Head";
 import Actions from "./Actions";
+import Messages from "./Messages";
 
 export default function Message(){
     const activeMessage = useSelector(state => state.message.activeMessage)
@@ -9,9 +10,7 @@ export default function Message(){
     return (
         <div className="flex flex-col h-full">
             <Head />
-            <div className="Messages w-full h-full bg-messagesBg bg-[length:412.5px_749.25px] bg-repeat bg-[#080a0a]">
-
-            </div>
+            <Messages />
             <Actions />
         </div>
     )
