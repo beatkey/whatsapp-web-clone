@@ -1,28 +1,23 @@
 import Message from "./Message";
 
-import {useSelector, useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {setActiveMessage} from "stores/message";
+import {useEffect, useState} from "react";
 
 export default function Messages(){
     const dispath = useDispatch()
     const activeMessage = useSelector(state => state.message.activeMessage)
+    const [messages, setMessages] = useState([]);
 
-    const messages = [
-        {
-            "image": "svg-group",
-            "name": "Kawasaki",
-            "message": "Lorem ipsum dolor sit amet.",
-            "time": "yesterday",
-            "status": "read"
-        },
-        {
-            "image": "svg-solo",
-            "name": "BMW",
-            "message": "S1000RR",
-            "time": "12:30 am",
-            "status": "photo"
-        },
-    ]
+    useEffect(() => {
+        getMessages()
+    }, [])
+
+    const getMessages = async () => {
+        const data = await fetch("/data.json")
+        const res = await data.json()
+        setMessages(res)
+    }
 
     function activeMessageHandle(index){
         dispath(setActiveMessage(index))

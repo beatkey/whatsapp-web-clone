@@ -8,7 +8,7 @@ export default function RightSide() {
     return (
         <div className="RightSide h-full w-[70%] bg-[#222e35]">
             {
-                activeMessage !== null
+                activeMessage == null
                     ?
                     <Default/>
                     :

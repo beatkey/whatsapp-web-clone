@@ -1,22 +1,4 @@
-export default function Messages() {
-    const messages = [
-        {
-            "message": "aaa",
-            "time": "9:03 pm",
-            "status": "sended",
-        },
-        {
-            "message": "aaa",
-            "time": "9:03 pm",
-            "status": "received",
-        },
-        {
-            "message": "im ok",
-            "time": "9:03 pm",
-            "status": "received",
-        }
-    ];
-
+export default function Messages({messages}) {
     const Status = ({type}) => {
         switch (type) {
             case "sended":
@@ -35,7 +17,7 @@ export default function Messages() {
             <div className="absolute w-full h-full bg-messagesBg bg-repeat bg-[#080a0a] opacity-[0.06]"></div>
             <div className="MessageList flex flex-col justify-end h-full pb-5 relative gap-y-0.5">
                 {
-                    messages.map((value, index) =>
+                    messages !== null && messages.messages.map((value, index) =>
                         (value.status !== "received") ?
                             <div key={index} className="MessageWrapper flex justify-end pl-[9%] pr-[9%]">
                                 <div
