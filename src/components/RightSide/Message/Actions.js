@@ -1,11 +1,18 @@
-import {useState} from "react";
+import {useCallback, useState} from "react";
+import {useDispatch} from "react-redux";
+import {sendMessage} from "stores/message";
 
 export default function Actions() {
+    const dispatch = useDispatch()
     const [message, setMessage] = useState("");
+    const input = useCallback(inputElement => {
+        inputElement && inputElement.focus()
+    })
 
-    const messageHandle = () => {
-        console.log(message)
+    const messageHandle = (e) => {
+        e.preventDefault()
         setMessage("")
+        dispatch(sendMessage(message))
     }
 
     return (
@@ -24,16 +31,18 @@ export default function Actions() {
                     </svg>
                 </div>
             </div>
-            <div className="w-full">
-                <input value={message} onChange={(event) => setMessage(event.target.value)} type="text" placeholder="Type a message"
-                       className="bg-[#2a3942] outline-none text-[#d1d7db] border border-[#2a3942] rounded-lg py-2 px-3 w-full placeholder:text-[15px] placeholder:pl-1 placeholder:text-[#8696a0]"/>
-            </div>
-            <div className="ml-5 cursor-pointer" onClick={messageHandle}>
-                <svg viewBox="0 0 24 24" width="24" height="24" className="text-[#8696a0]">
-                    <path fill="currentColor"
-                          d="M1.101 21.757 23.8 12.028 1.101 2.3l.011 7.912 13.623 1.816-13.623 1.817-.011 7.912z"></path>
-                </svg>
-            </div>
+            <form onSubmit={messageHandle} className="flex items-center w-full">
+                <div className="w-full">
+                    <input ref={input} value={message} onChange={(event) => setMessage(event.target.value)} type="text" placeholder="Type a message"
+                           className="bg-[#2a3942] outline-none text-[#d1d7db] border border-[#2a3942] rounded-lg py-2 px-3 w-full placeholder:text-[15px] placeholder:pl-1 placeholder:text-[#8696a0]"/>
+                </div>
+                <button className="ml-5 cursor-pointer" type="submit">
+                    <svg viewBox="0 0 24 24" width="24" height="24" className="text-[#8696a0]">
+                        <path fill="currentColor"
+                              d="M1.101 21.757 23.8 12.028 1.101 2.3l.011 7.912 13.623 1.816-13.623 1.817-.011 7.912z"></path>
+                    </svg>
+                </button>
+            </form>
         </div>
     )
 }

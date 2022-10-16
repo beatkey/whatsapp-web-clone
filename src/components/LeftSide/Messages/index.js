@@ -2,22 +2,11 @@ import Message from "./Message";
 
 import {useDispatch, useSelector} from "react-redux";
 import {setActiveMessage} from "stores/message";
-import {useEffect, useState} from "react";
 
 export default function Messages(){
     const dispath = useDispatch()
     const activeMessage = useSelector(state => state.message.activeMessage)
-    const [messages, setMessages] = useState([]);
-
-    useEffect(() => {
-        getMessages()
-    }, [])
-
-    const getMessages = async () => {
-        const data = await fetch("/data.json")
-        const res = await data.json()
-        setMessages(res)
-    }
+    const messages = useSelector(state => state.message.messages)
 
     function activeMessageHandle(index){
         dispath(setActiveMessage(index))
