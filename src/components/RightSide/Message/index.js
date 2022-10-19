@@ -9,7 +9,7 @@ export default function Message(){
     const messages = useSelector(state => state.message.messages)[activeMessage]
 
     return (
-        <div className="flex flex-col h-full">
+        <div className="h-full grid grid-rows-[60px_calc(100%-120px)_60px]">
             <Head name={messages?.name} />
             <Messages messages={messages} />
             <Actions />

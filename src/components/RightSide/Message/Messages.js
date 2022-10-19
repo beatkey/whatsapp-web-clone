@@ -1,3 +1,5 @@
+import {useEffect, useRef} from "react";
+
 export default function Messages({messages}) {
     const Status = ({type}) => {
         switch (type) {
@@ -12,48 +14,57 @@ export default function Messages({messages}) {
         }
     }
 
+    const messageListWrapper = useRef(null)
+    const messageList = useRef(null)
+
+    useEffect(() => {
+        messageListWrapper.current.scrollTop = messageList.current.clientHeight
+    })
+
     return (
-        <div className="flex-auto Messages w-full relative bg-[#0b141a] border-l border-[rgba(233,237,239,0.12)]">
+        <div className="Messages max-h-full w-full relative bg-[#0b141a] border-l border-[rgba(233,237,239,0.12)]">
             <div className="absolute w-full h-full bg-messagesBg bg-repeat bg-[#080a0a] opacity-[0.06]"></div>
-            <div className="MessageList flex flex-col justify-end h-full pb-5 relative gap-y-0.5">
-                {
-                    messages !== null && messages.messages.map((value, index) =>
-                        (value.status !== "received") ?
-                            <div key={index} className="MessageWrapper flex justify-end pl-[9%] pr-[9%]">
-                                <div
-                                    className="Message bg-[#005c4b] text-[#e9edef] text-[14px] inline-block rounded-md px-1.5 flex items-end">
-                                    <div className="mr-1 px-1 py-1.5">
-                                        {value.message}
-                                    </div>
-                                    <div className="flex items-center py-0.5 text-[hsla(0,0%,100%,0.6)]">
-                                        <div className="mr-1 text-[12px]">
-                                            {value.time}
+            <div ref={messageListWrapper} className="w-full overflow-y-scroll max-h-full">
+                <div ref={messageList} className="MessageList max-h-full flex flex-col justify-end h-full py-5 relative gap-y-0.5">
+                    {
+                        messages !== null && messages.messages.map((value, index) =>
+                            (value.status !== "received") ?
+                                <div key={index} className="MessageWrapper flex justify-end pl-[9%] pr-[9%]">
+                                    <div
+                                        className="Message bg-[#005c4b] text-[#e9edef] text-[14px] inline-block rounded-md px-1.5 flex items-end">
+                                        <div className="mr-1 px-1 py-1.5">
+                                            {value.message}
                                         </div>
-                                        <div>
-                                            <Status type={value.status}/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            :
-                            <div key={index} className="MessageWrapper flex justify-start pl-[9%] pr-[9%]">
-                                <div
-                                    className="Message bg-[#202c33] text-[#e9edef] text-[14px] inline-block rounded-md px-1.5 flex items-end">
-                                    <div className="mr-1 px-1 py-1.5">
-                                        {value.message}
-                                    </div>
-                                    <div className="flex items-center py-0.5 text-[hsla(0,0%,100%,0.6)]">
-                                        <div className="mr-1 text-[12px]">
-                                            {value.time}
-                                        </div>
-                                        <div>
-                                            <Status type={value.status}/>
+                                        <div className="flex items-center py-0.5 text-[hsla(0,0%,100%,0.6)]">
+                                            <div className="mr-1 text-[12px]">
+                                                {value.time}
+                                            </div>
+                                            <div>
+                                                <Status type={value.status}/>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                    )
-                }
+                                :
+                                <div key={index} className="MessageWrapper flex justify-start pl-[9%] pr-[9%]">
+                                    <div
+                                        className="Message bg-[#202c33] text-[#e9edef] text-[14px] inline-block rounded-md px-1.5 flex items-end">
+                                        <div className="mr-1 px-1 py-1.5">
+                                            {value.message}
+                                        </div>
+                                        <div className="flex items-center py-0.5 text-[hsla(0,0%,100%,0.6)]">
+                                            <div className="mr-1 text-[12px]">
+                                                {value.time}
+                                            </div>
+                                            <div>
+                                                <Status type={value.status}/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        )
+                    }
+                </div>
             </div>
         </div>
     )

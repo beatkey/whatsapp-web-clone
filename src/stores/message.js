@@ -10,17 +10,17 @@ const messages = [
         "messages": [
             {
                 "message": "aaa",
-                "time": "9:03 pm",
+                "time": "9:03",
                 "status": "sended"
             },
             {
                 "message": "aaa",
-                "time": "9:03 pm",
+                "time": "9:03",
                 "status": "received"
             },
             {
                 "message": "im ok",
-                "time": "9:03 pm",
+                "time": "9:03",
                 "status": "received"
             }
         ]
@@ -29,11 +29,11 @@ const messages = [
         "image": "svg-solo",
         "name": "BMW",
         "message": "S1000RR",
-        "time": "12:30 am",
+        "time": "12:30",
         "status": "photo",
         "messages": []
     }
-]
+];
 
 const initialState = {
     activeMessage: null,
@@ -48,7 +48,13 @@ const slice = createSlice({
             state.activeMessage = action.payload
         },
         sendMessage: (state, action) => {
-            console.log(state.messages)
+            const date = new Date()
+            const time = date.getHours() + ":" + date.getMinutes()
+            state.messages[state.activeMessage].messages.push({
+                "message": action.payload,
+                "time": time,
+                "status": "sended"
+            })
         }
     }
 })
