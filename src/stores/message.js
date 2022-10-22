@@ -1,12 +1,9 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-const messages = [
+let messages = [
     {
         "image": "svg-group",
         "name": "Kawasaki",
-        "message": "Lorem ipsum dolor sit amet.",
-        "time": "yesterday",
-        "status": "read",
         "messages": [
             {
                 "message": "aaa",
@@ -19,21 +16,29 @@ const messages = [
                 "status": "received"
             },
             {
-                "message": "im ok",
+                "message": "im okkk",
                 "time": "9:03",
                 "status": "received"
             }
         ]
     },
     {
-        "image": "svg-solo",
+        "image": "https://productimages.hepsiburada.net/s/160/375/110000118595678.jpg",
         "name": "BMW",
-        "message": "S1000RR",
-        "time": "12:30",
-        "status": "photo",
+        "messages": []
+    },
+    {
+        "image": "svg-solo",
+        "name": "Yamaha",
         "messages": []
     }
 ];
+
+if(localStorage.getItem("messages")){
+    messages = JSON.parse(localStorage.getItem("messages"))
+}else{
+    localStorage.setItem("messages", JSON.stringify(messages))
+}
 
 const initialState = {
     activeMessage: null,
@@ -49,12 +54,22 @@ const slice = createSlice({
         },
         sendMessage: (state, action) => {
             const date = new Date()
-            const time = date.getHours() + ":" + date.getMinutes()
+            const minutes = date.getMinutes() <= 9 ? '0' + date.getMinutes() : date.getMinutes();
+            const time = date.getHours() + ":" + minutes
             state.messages[state.activeMessage].messages.push({
                 "message": action.payload,
                 "time": time,
                 "status": "sended"
             })
+
+            // local storage actions
+            const messages = JSON.parse(localStorage.getItem("messages"))
+            messages[state.activeMessage].messages.push({
+                "message": action.payload,
+                "time": time,
+                "status": "sended"
+            })
+            localStorage.setItem("messages", JSON.stringify(messages))
         }
     }
 })

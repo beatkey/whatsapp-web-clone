@@ -13,7 +13,7 @@ export default function Messages(){
     }
 
     return (
-        <div className="Messages overflow-y-scroll overflow-x-hidden overflow scroolbar">
+        <div className="Messages overflow-y-scroll overflow-x-hidden overflow scrollbar">
             <div className="Archived cursor-pointer flex items-center py-3 px-7">
                 <div className="mr-7">
                     <svg width="18" height="18" viewBox="0 0 20 20" fill="none" className="">

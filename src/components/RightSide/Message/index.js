@@ -10,7 +10,7 @@ export default function Message(){
 
     return (
         <div className="h-full grid grid-rows-[60px_calc(100%-120px)_60px]">
-            <Head name={messages?.name} />
+            <Head image={messages?.image} name={messages?.name} />
             <Messages messages={messages} />
             <Actions />
         </div>
