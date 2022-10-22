@@ -2,15 +2,23 @@ import Message from "./Message";
 
 import {useDispatch, useSelector} from "react-redux";
 import {setActiveMessage} from "stores/message";
+import {useEffect, useState} from "react";
 
-export default function Messages(){
+export default function Messages({filterText}){
     const dispath = useDispatch()
     const activeMessage = useSelector(state => state.message.activeMessage)
-    const messages = useSelector(state => state.message.messages)
+    const messagesData = useSelector(state => state.message.messages)
+    const [messages, setMessages] = useState(messagesData)
 
-    function activeMessageHandle(index){
-        dispath(setActiveMessage(index))
+    function activeMessageHandle(name){
+        dispath(setActiveMessage(name))
     }
+
+    useEffect(() => {
+        setMessages(messagesData.filter(value => {
+            return value.name.toLowerCase().includes(filterText.toLowerCase())
+        }))
+    }, [filterText])
 
     return (
         <div className="Messages overflow-y-scroll overflow-x-hidden overflow scrollbar">

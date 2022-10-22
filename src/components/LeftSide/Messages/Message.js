@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 
 import UserAvatar from "components/Global/UserAvatar";
 
-export default function Message({value, activeMessageHandle, index, activeMessage}) {
+export default function Message({value, activeMessageHandle, activeMessage}) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -59,8 +59,8 @@ export default function Message({value, activeMessageHandle, index, activeMessag
     }
 
     return (
-        <div onClick={() => activeMessageHandle(index)}
-             className={"Message group cursor-pointer flex items-center pl-3.5 " + (activeMessage === index ? "bg-[#2a3942]" : "hover:bg-[#202c33]")}>
+        <div onClick={() => activeMessageHandle(value.name)}
+             className={"Message group cursor-pointer flex items-center pl-3.5 " + (activeMessage === value.name ? "bg-[#2a3942]" : "hover:bg-[#202c33]")}>
             <div className="Img mr-3">
                 <div className="w-[49px] h-[49px] rounded-full overflow-hidden">
                     <UserAvatar type={value.image}/>

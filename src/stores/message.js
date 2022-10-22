@@ -56,7 +56,10 @@ const slice = createSlice({
             const date = new Date()
             const minutes = date.getMinutes() <= 9 ? '0' + date.getMinutes() : date.getMinutes();
             const time = date.getHours() + ":" + minutes
-            state.messages[state.activeMessage].messages.push({
+
+            state.messages.find(value => {
+                return value.name === state.activeMessage
+            }).messages.push({
                 "message": action.payload,
                 "time": time,
                 "status": "sended"
@@ -64,7 +67,9 @@ const slice = createSlice({
 
             // local storage actions
             const messages = JSON.parse(localStorage.getItem("messages"))
-            messages[state.activeMessage].messages.push({
+            messages.find(value => {
+                return value.name === state.activeMessage
+            }).messages.push({
                 "message": action.payload,
                 "time": time,
                 "status": "sended"
