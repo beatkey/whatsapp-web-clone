@@ -18,7 +18,7 @@ export default function Messages({filterText}){
         setMessages(messagesData.filter(value => {
             return value.name.toLowerCase().includes(filterText.toLowerCase())
         }))
-    }, [filterText])
+    }, [filterText, messagesData])
 
     return (
         <div className="Messages overflow-y-scroll overflow-x-hidden overflow scrollbar">
