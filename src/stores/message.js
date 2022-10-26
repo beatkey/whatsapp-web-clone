@@ -65,25 +65,13 @@ const slice = createSlice({
                 "status": "sended"
             })
 
-            // local storage actions
-            const messages = JSON.parse(localStorage.getItem("messages"))
-            messages.find(value => {
-                return value.name === state.activeMessage
-            }).messages.push({
-                "message": action.payload,
-                "time": time,
-                "status": "sended"
-            })
-            localStorage.setItem("messages", JSON.stringify(messages))
+            localStorage.setItem("messages", JSON.stringify(current(state.messages)))
         },
         deleteMessage: (state, action) => {
-            console.log(state.messages.filter(message => message.name !== action.payload))
-            //state.messages = state.messages.filter(message => message.name !== action.payload)
-            //state.messages.splice(0,1)
+            let messages = state.messages.filter(message => message.name !== action.payload)
+            state.messages = messages
 
-            //const messages = JSON.parse(localStorage.getItem("messages"))
-            //messages.splice(0,1)
-            //localStorage.setItem("messages", JSON.stringify(messages))
+            localStorage.setItem("messages", JSON.stringify(messages))
         }
     }
 })

@@ -5,14 +5,18 @@ import {useSelector} from "react-redux";
 
 export default function RightSide() {
     const activeMessage = useSelector(state => state.message.activeMessage)
+    const messages = useSelector(state => state.message.messages).find(value => {
+        return value.name === activeMessage
+    })
+
     return (
         <div className="RightSide h-full w-[70%] bg-[#222e35]">
             {
-                activeMessage == null
+                activeMessage == null || messages === undefined
                     ?
                     <Default/>
                     :
-                    <Message/>
+                    <Message messages={messages}/>
             }
         </div>
     )
