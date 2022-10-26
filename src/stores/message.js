@@ -1,4 +1,4 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, current} from "@reduxjs/toolkit";
 
 let messages = [
     {
@@ -75,9 +75,18 @@ const slice = createSlice({
                 "status": "sended"
             })
             localStorage.setItem("messages", JSON.stringify(messages))
+        },
+        deleteMessage: (state, action) => {
+            console.log(state.messages.filter(message => message.name !== action.payload))
+            //state.messages = state.messages.filter(message => message.name !== action.payload)
+            //state.messages.splice(0,1)
+
+            //const messages = JSON.parse(localStorage.getItem("messages"))
+            //messages.splice(0,1)
+            //localStorage.setItem("messages", JSON.stringify(messages))
         }
     }
 })
 
-export const {setActiveMessage, sendMessage} = slice.actions
+export const {setActiveMessage, sendMessage, deleteMessage} = slice.actions
 export default slice.reducer

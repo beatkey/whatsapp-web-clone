@@ -5,15 +5,26 @@ import MenuItem from '@mui/material/MenuItem';
 
 import UserAvatar from "components/Global/UserAvatar";
 
+import {useDispatch} from "react-redux";
+import {deleteMessage} from "stores/message";
+
 export default function Message({value, activeMessageHandle, activeMessage}) {
+    const dispatch = useDispatch()
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
+
     const handleClick = (event) => {
         event.preventDefault()
         setAnchorEl(event.currentTarget);
     };
-    const handleClose = () => {
+
+    const handleClose = (type, name) => {
         setAnchorEl(null);
+        switch (type){
+            case 3: // delete chat
+                dispatch(deleteMessage(name))
+                break
+        }
     };
 
     const Status = ({type}) => {
@@ -57,6 +68,14 @@ export default function Message({value, activeMessageHandle, activeMessage}) {
             status: value.messages.at(-1).status
         }
     }
+
+    const menuItems = [
+        "Archive Chat",
+        "Mute notifications",
+        "Mark As Unread",
+        "Delete Chat",
+        "Pin Chat"
+    ]
 
     return (
         <div onClick={() => activeMessageHandle(value.name)}
@@ -108,11 +127,9 @@ export default function Message({value, activeMessageHandle, activeMessage}) {
                             'aria-labelledby': 'basic-button',
                         }}
                     >
-                        <MenuItem onClick={handleClose}>Archive Chat</MenuItem>
-                        <MenuItem onClick={handleClose}>Mute notifications</MenuItem>
-                        <MenuItem onClick={handleClose}>Mark As Unread</MenuItem>
-                        <MenuItem onClick={handleClose}>Delete Chat</MenuItem>
-                        <MenuItem onClick={handleClose}>Pin Chat</MenuItem>
+                        {
+                            menuItems.map((menuItem, index) => <MenuItem key={index} onClick={() => handleClose(index, value.name)}>{menuItem}</MenuItem>)
+                        }
                     </Menu>
                 </div>
             </div>
