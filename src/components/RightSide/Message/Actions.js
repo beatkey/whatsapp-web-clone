@@ -1,6 +1,6 @@
 import {useCallback, useState} from "react";
 import {useDispatch} from "react-redux";
-import {sendMessage} from "stores/message";
+import {sendMessage} from "stores/Message";
 
 export default function Actions() {
     const dispatch = useDispatch()

@@ -6,7 +6,7 @@ import MenuItem from '@mui/material/MenuItem';
 import UserAvatar from "components/Global/UserAvatar";
 
 import {useDispatch} from "react-redux";
-import {deleteMessage} from "stores/message";
+import {deleteMessage} from "stores/Message";
 
 export default function Message({value, activeMessageHandle, activeMessage}) {
     const dispatch = useDispatch()

@@ -1,17 +1,17 @@
 import Message from "./Message";
 
 import {useDispatch, useSelector} from "react-redux";
-import {setActiveMessage} from "stores/message";
+import {setActiveMessage} from "stores/Message";
 import {useEffect, useState} from "react";
 
 export default function Messages({filterText}){
-    const dispath = useDispatch()
+    const dispatch = useDispatch()
     const activeMessage = useSelector(state => state.message.activeMessage)
     const messagesData = useSelector(state => state.message.messages)
     const [messages, setMessages] = useState(messagesData)
 
     function activeMessageHandle(name){
-        dispath(setActiveMessage(name))
+        dispatch(setActiveMessage(name))
     }
 
     useEffect(() => {

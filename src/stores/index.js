@@ -1,10 +1,12 @@
 import {configureStore} from "@reduxjs/toolkit";
 
-import message from "./message";
+import message from "./Message";
+import contacts from "./Contacts";
 
 const store = configureStore({
     reducer: {
-        message
+        message,
+        contacts
     }
 })
 

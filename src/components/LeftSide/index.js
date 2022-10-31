@@ -18,11 +18,11 @@ export default function LeftSide() {
     };
 
     return (
-        <div className="LeftSide h-full bg-color1 w-[30%] relative">
+        <div className="LeftSide h-full bg-color1 w-[30%] relative overflow-hidden">
             <Head handleDrawerOpen={handleDrawerOpen}/>
             <Search setFilterText={setFilterText}/>
             <Messages filterText={filterText}/>
-            {/*<NewChat/>*/}
+            <NewChat drawerOpen={open} handleDrawerClose={handleDrawerClose}/>
         </div>
     )
 }
