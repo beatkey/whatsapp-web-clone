@@ -31,9 +31,9 @@ let messages = [
     }
 ];
 
-if(localStorage.getItem("messages")){
+if (localStorage.getItem("messages")) {
     messages = JSON.parse(localStorage.getItem("messages"))
-}else{
+} else {
     localStorage.setItem("messages", JSON.stringify(messages))
 }
 
@@ -69,9 +69,17 @@ const slice = createSlice({
             state.messages = messages
 
             localStorage.setItem("messages", JSON.stringify(messages))
+        },
+        createMessage: (state, action) => {
+            if (state.messages.find(message => message.name === state.activeMessage === undefined)) {
+                state.messages.push({
+                    name: state.activeMessage,
+                    messages: []
+                })
+            }
         }
     }
 })
 
-export const {setActiveMessage, sendMessage, deleteMessage} = slice.actions
+export const {setActiveMessage, sendMessage, deleteMessage, createMessage} = slice.actions
 export default slice.reducer

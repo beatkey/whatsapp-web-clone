@@ -1,5 +1,3 @@
-import * as React from "react";
-
 import {useSelector, useDispatch} from "react-redux";
 import {setActiveMessage} from "stores/Message";
 
@@ -7,7 +5,7 @@ import UserAvatar from "../Global/UserAvatar";
 
 function NewChat({handleDrawerClose, drawerOpen}) {
     const dispatch = useDispatch()
-    const Contacts = useSelector(state => state.contacts)
+    const contacts = useSelector(state => state.contacts)
     const Alphabet = [...Array(26)].map((x, i) => String.fromCharCode(i + 65))
 
     const Status = ({type}) => {
@@ -64,14 +62,14 @@ function NewChat({handleDrawerClose, drawerOpen}) {
                 <div className="Wrapper max-h-full overflow-y-scroll overflow-x-hidden overflow scrollbar">
                     {
                         Alphabet.map((value, index) => {
-                            if (Contacts.find(contact => contact.name[0] === value)) {
+                            if (contacts.find(contact => contact.name[0] === value)) {
                                 return (
                                     <div key={index}>
                                         <div className="text-[#008069] py-4 px-8">
                                             {value}
                                         </div>
                                         {
-                                            Contacts.filter(contact => contact.name[0] === value).map((contact, contactIndex) =>
+                                            contacts.filter(contact => contact.name[0] === value).map((contact, contactIndex) =>
                                                 <div key={contactIndex} onClick={() => NewChatHandler(contact.name)}
                                                     className={"Message group cursor-pointer flex items-center pl-3.5 hover:bg-[#202c33]"}>
                                                     <div className="Img mr-3">
