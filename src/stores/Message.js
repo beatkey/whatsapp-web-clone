@@ -2,7 +2,6 @@ import {createSlice, current} from "@reduxjs/toolkit";
 
 let messages = [
     {
-        "image": "svg-group",
         "name": "Kawasaki",
         "messages": [
             {
@@ -23,12 +22,10 @@ let messages = [
         ]
     },
     {
-        "image": "https://productimages.hepsiburada.net/s/160/375/110000118595678.jpg",
         "name": "BMW",
         "messages": []
     },
     {
-        "image": "svg-solo",
         "name": "Yamaha",
         "messages": []
     }

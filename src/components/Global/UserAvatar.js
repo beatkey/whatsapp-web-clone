@@ -1,7 +1,5 @@
-import * as React from "react";
-
 const UserAvatar = ({type}) => {
-    switch (type){
+    switch (type) {
         case "svg-group":
             return (
                 <svg viewBox="0 0 212 212" fill="none" className="w-full h-full">

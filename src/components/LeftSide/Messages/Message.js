@@ -8,10 +8,13 @@ import UserAvatar from "components/Global/UserAvatar";
 import {useDispatch} from "react-redux";
 import {deleteMessage} from "stores/Message";
 
+import {GetContactImage} from "helpers";
+
 export default function Message({value, activeMessageHandle, activeMessage}) {
     const dispatch = useDispatch()
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
+    const contactImage = GetContactImage(value.name);
 
     const handleClick = (event) => {
         event.preventDefault()
@@ -20,7 +23,7 @@ export default function Message({value, activeMessageHandle, activeMessage}) {
 
     const handleClose = (type, name) => {
         setAnchorEl(null);
-        switch (type){
+        switch (type) {
             case 3: // delete chat
                 dispatch(deleteMessage(name))
                 break
@@ -82,7 +85,7 @@ export default function Message({value, activeMessageHandle, activeMessage}) {
              className={"Message group cursor-pointer flex items-center pl-3.5 " + (activeMessage === value.name ? "bg-[#2a3942]" : "hover:bg-[#202c33]")}>
             <div className="Img mr-3">
                 <div className="w-[49px] h-[49px] rounded-full overflow-hidden">
-                    <UserAvatar type={value.image}/>
+                    <UserAvatar type={contactImage}/>
                 </div>
             </div>
             <div
@@ -128,7 +131,8 @@ export default function Message({value, activeMessageHandle, activeMessage}) {
                         }}
                     >
                         {
-                            menuItems.map((menuItem, index) => <MenuItem key={index} onClick={() => handleClose(index, value.name)}>{menuItem}</MenuItem>)
+                            menuItems.map((menuItem, index) => <MenuItem key={index}
+                                                                         onClick={() => handleClose(index, value.name)}>{menuItem}</MenuItem>)
                         }
                     </Menu>
                 </div>
