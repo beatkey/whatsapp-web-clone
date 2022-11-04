@@ -77,8 +77,13 @@ const slice = createSlice({
 
             localStorage.setItem("messages", JSON.stringify(messages))
         },
+        archiveMessage: (state, action) => {
+            state.messages.find(value => {
+                return value.name === state.activeMessage
+            })["archived"] = true
+        }
     }
 })
 
-export const {setActiveMessage, sendMessage, deleteMessage, createMessage} = slice.actions
+export const {setActiveMessage, sendMessage, deleteMessage, archiveMessage} = slice.actions
 export default slice.reducer

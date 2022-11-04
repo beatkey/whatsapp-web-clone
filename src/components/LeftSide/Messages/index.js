@@ -2,23 +2,22 @@ import Message from "./Message";
 
 import {useDispatch, useSelector} from "react-redux";
 import {setActiveMessage} from "stores/Message";
-import {useEffect, useState} from "react";
 
-export default function Messages({filterText}){
+export default function Messages({filterText}) {
     const dispatch = useDispatch()
     const activeMessage = useSelector(state => state.message.activeMessage)
-    const messagesData = useSelector(state => state.message.messages)
-    const [messages, setMessages] = useState(messagesData)
+    const messages = useSelector(state => {
+        const all = state.message.messages.filter(value => !value.archived)
 
-    function activeMessageHandle(name){
+        if (filterText.length > 0) {
+            return all.filter(value => value.name.toLowerCase().includes(filterText.toLowerCase()))
+        }
+        return all
+    })
+
+    function activeMessageHandle(name) {
         dispatch(setActiveMessage(name))
     }
-
-    useEffect(() => {
-        setMessages(messagesData.filter(value => {
-            return value.name.toLowerCase().includes(filterText.toLowerCase())
-        }))
-    }, [filterText, messagesData])
 
     return (
         <div className="Messages overflow-y-scroll overflow-x-hidden overflow scrollbar">
@@ -36,7 +35,8 @@ export default function Messages({filterText}){
             </div>
             {
                 messages.map((value, index) => (
-                    <Message activeMessageHandle={activeMessageHandle} activeMessage={activeMessage} key={index} index={index} value={value} />
+                    <Message activeMessageHandle={activeMessageHandle} activeMessage={activeMessage} key={index}
+                             index={index} value={value}/>
                 ))
             }
         </div>

@@ -6,7 +6,7 @@ import MenuItem from '@mui/material/MenuItem';
 import {UserAvatar, Status} from "components/Global";
 
 import {useDispatch} from "react-redux";
-import {deleteMessage} from "stores/Message";
+import {deleteMessage, archiveMessage} from "stores/Message";
 
 import {GetContact} from "helpers";
 
@@ -24,6 +24,9 @@ export default function Message({value, activeMessageHandle, activeMessage}) {
     const handleClose = (type, name) => {
         setAnchorEl(null);
         switch (type) {
+            case 0: // archive chat
+                dispatch(archiveMessage(name))
+                break
             case 3: // delete chat
                 dispatch(deleteMessage(name))
                 break
