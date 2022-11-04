@@ -2,12 +2,12 @@ import Head from "./Head";
 import Actions from "./Actions";
 import Messages from "./Messages";
 
-export default function Message({messages}){
+export default function Message({messages}) {
     return (
         <div className="h-full grid grid-rows-[60px_calc(100%-120px)_60px]">
-            <Head name={messages?.name} />
-            <Messages messages={messages} />
-            <Actions />
+            <Head/>
+            <Messages messages={messages}/>
+            <Actions/>
         </div>
     )
 }

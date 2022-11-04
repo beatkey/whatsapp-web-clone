@@ -23,7 +23,7 @@ const UserAvatar = ({type}) => {
             )
         default:
             return (
-                <img src={type} alt=""/>
+                <img className="w-full h-full object-cover" src={type} alt=""/>
             )
     }
 };

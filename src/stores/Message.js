@@ -20,14 +20,6 @@ let messages = [
                 "status": "received"
             }
         ]
-    },
-    {
-        "name": "BMW",
-        "messages": []
-    },
-    {
-        "name": "Yamaha",
-        "messages": []
     }
 ];
 
@@ -54,13 +46,28 @@ const slice = createSlice({
             const minutes = date.getMinutes() <= 9 ? '0' + date.getMinutes() : date.getMinutes();
             const time = date.getHours() + ":" + minutes
 
-            state.messages.find(value => {
+            let messages = state.messages.find(value => {
                 return value.name === state.activeMessage
-            }).messages.push({
-                "message": action.payload,
-                "time": time,
-                "status": "sended"
             })
+
+            if (messages === undefined) {
+                state.messages.push({
+                    name: state.activeMessage,
+                    messages: [{
+                        "message": action.payload,
+                        "time": time,
+                        "status": "sended"
+                    }]
+                })
+            } else {
+                state.messages.find(value => {
+                    return value.name === state.activeMessage
+                }).messages.push({
+                    "message": action.payload,
+                    "time": time,
+                    "status": "sended"
+                })
+            }
 
             localStorage.setItem("messages", JSON.stringify(current(state.messages)))
         },
@@ -70,14 +77,6 @@ const slice = createSlice({
 
             localStorage.setItem("messages", JSON.stringify(messages))
         },
-        createMessage: (state, action) => {
-            if (state.messages.find(message => message.name === state.activeMessage === undefined)) {
-                state.messages.push({
-                    name: state.activeMessage,
-                    messages: []
-                })
-            }
-        }
     }
 })
 

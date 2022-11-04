@@ -1,15 +1,21 @@
-import UserAvatar from "components/Global/UserAvatar";
-import {GetContactImage} from "helpers";
+import {useSelector} from "react-redux";
 
-export default function Head({name}){
-    const contactImage = GetContactImage(name);
+import {UserAvatar} from "components/Global";
+
+import {GetContact} from "helpers";
+
+export default function Head() {
+    const activeMessage = useSelector(state => state.message.activeMessage)
+    const contact = GetContact(activeMessage);
+
     return (
-        <div className="bg-color2 h-[60px] px-4 pr-6 flex items-center justify-between border-l border-[rgba(134,150,160,0.15)]">
+        <div
+            className="bg-color2 h-[60px] px-4 pr-6 flex items-center justify-between border-l border-[rgba(134,150,160,0.15)]">
             <div className="flex items-center text-[#e9edef]">
                 <div className="w-[40px] h-[40px] rounded-full overflow-hidden mr-3">
-                    <UserAvatar type={contactImage} />
+                    <UserAvatar type={contact.image}/>
                 </div>
-                {name}
+                {contact.name}
             </div>
             <div className="flex items-center text-[#aebac1] gap-4">
                 <div>
