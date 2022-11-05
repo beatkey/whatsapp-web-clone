@@ -81,9 +81,15 @@ const slice = createSlice({
             state.messages.find(value => {
                 return value.name === state.activeMessage
             })["archived"] = true
+            state.activeMessage = null
+        },
+        unarchiveMessage: (state, action) => {
+            state.messages.find(value => {
+                return value.name === state.activeMessage
+            })["archived"] = false
         }
     }
 })
 
-export const {setActiveMessage, sendMessage, deleteMessage, archiveMessage} = slice.actions
+export const {setActiveMessage, sendMessage, deleteMessage, archiveMessage, unarchiveMessage} = slice.actions
 export default slice.reducer

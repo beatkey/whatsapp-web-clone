@@ -3,7 +3,7 @@ import Message from "./Message";
 import {useDispatch, useSelector} from "react-redux";
 import {setActiveMessage} from "stores/Message";
 
-export default function Messages({filterText}) {
+export default function Messages({filterText, handleArchiveOpen}) {
     const dispatch = useDispatch()
     const activeMessage = useSelector(state => state.message.activeMessage)
     const messages = useSelector(state => {
@@ -21,7 +21,7 @@ export default function Messages({filterText}) {
 
     return (
         <div className="Messages overflow-y-scroll overflow-x-hidden overflow scrollbar">
-            <div className="Archived cursor-pointer flex items-center py-3 px-7">
+            <div onClick={handleArchiveOpen} className="Archived cursor-pointer flex items-center py-3 px-7">
                 <div className="mr-7">
                     <svg width="18" height="18" viewBox="0 0 20 20" fill="none" className="">
                         <path
