@@ -101,7 +101,12 @@ function Contact({contact}) {
                         {
                             menuItems.map((menuItem, index) =>
                                 <MenuItem key={index}
-                                          onClick={() => handleClose(index, contact.name)}>{menuItem}</MenuItem>)
+                                          onClick={(e) => {
+                                              handleClose(index, contact.name)
+                                              e.stopPropagation()
+                                          }}>
+                                    {menuItem}
+                                </MenuItem>)
                         }
                     </Menu>
                 </div>

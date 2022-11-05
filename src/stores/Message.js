@@ -82,11 +82,16 @@ const slice = createSlice({
                 return value.name === state.activeMessage
             })["archived"] = true
             state.activeMessage = null
+
+            localStorage.setItem("messages", JSON.stringify(current(state.messages)))
         },
         unarchiveMessage: (state, action) => {
             state.messages.find(value => {
                 return value.name === state.activeMessage
             })["archived"] = false
+            state.activeMessage = null
+
+            localStorage.setItem("messages", JSON.stringify(current(state.messages)))
         }
     }
 })
