@@ -1,6 +1,6 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, current} from "@reduxjs/toolkit";
 
-const initialState = [
+let contacts = [
     {
         name: "Kawasaki",
         image: "svg-group",
@@ -28,12 +28,31 @@ const initialState = [
     }
 ]
 
+if (localStorage.getItem("contacts")) {
+    contacts = JSON.parse(localStorage.getItem("contacts"))
+} else {
+    localStorage.setItem("contacts", JSON.stringify(contacts))
+}
+
 const slice = createSlice({
     name: "contacts",
-    initialState,
+    initialState: contacts,
     reducers: {
+        muteContact: (state, action) => {
+            state.find(value => value.name === action.payload)["muted"] = true
 
+            localStorage.setItem("contacts", JSON.stringify(current(state)))
+        },
+        unMuteContact: (state, action) => {
+            state.find(value => value.name === action.payload)["muted"] = false
+
+            localStorage.setItem("contacts", JSON.stringify(current(state)))
+        }
     }
 })
 
+export const {
+    muteContact,
+    unMuteContact
+} = slice.actions
 export default slice.reducer
