@@ -47,12 +47,24 @@ const slice = createSlice({
             state.find(value => value.name === action.payload)["muted"] = false
 
             localStorage.setItem("contacts", JSON.stringify(current(state)))
+        },
+        pinContact: (state, action) => {
+            state.find(value => value.name === action.payload)["pinned"] = true
+
+            localStorage.setItem("contacts", JSON.stringify(current(state)))
+        },
+        unPinContact: (state, action) => {
+            state.find(value => value.name === action.payload)["pinned"] = false
+
+            localStorage.setItem("contacts", JSON.stringify(current(state)))
         }
     }
 })
 
 export const {
     muteContact,
-    unMuteContact
+    unMuteContact,
+    pinContact,
+    unPinContact
 } = slice.actions
 export default slice.reducer

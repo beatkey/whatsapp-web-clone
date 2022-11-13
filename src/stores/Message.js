@@ -6,17 +6,17 @@ let messages = [
         "messages": [
             {
                 "message": "aaa",
-                "time": "9:03",
+                "time": 1668355783752,
                 "status": "sended"
             },
             {
                 "message": "aaa",
-                "time": "9:03",
+                "time": 1668355783752,
                 "status": "received"
             },
             {
                 "message": "im okkk",
-                "time": "9:03",
+                "time": 1668355783752,
                 "status": "received"
             }
         ]
@@ -42,9 +42,9 @@ const slice = createSlice({
             state.activeMessage = action.payload
         },
         sendMessage: (state, action) => {
-            const date = new Date()
-            const minutes = date.getMinutes() <= 9 ? '0' + date.getMinutes() : date.getMinutes();
-            const time = date.getHours() + ":" + minutes
+            const time = new Date().getTime()
+            //const minutes = date.getMinutes() <= 9 ? '0' + date.getMinutes() : date.getMinutes();
+            //const time = date.getHours() + ":" + minutes
 
             let messages = state.messages.find(value => {
                 return value.name === state.activeMessage
@@ -85,7 +85,7 @@ const slice = createSlice({
 
             localStorage.setItem("messages", JSON.stringify(current(state.messages)))
         },
-        unarchiveMessage: (state, action) => {
+        unArchiveMessage: (state, action) => {
             state.messages.find(value => {
                 return value.name === state.activeMessage
             })["archived"] = false
@@ -96,5 +96,5 @@ const slice = createSlice({
     }
 })
 
-export const {setActiveMessage, sendMessage, deleteMessage, archiveMessage, unarchiveMessage} = slice.actions
+export const {setActiveMessage, sendMessage, deleteMessage, archiveMessage, unArchiveMessage} = slice.actions
 export default slice.reducer

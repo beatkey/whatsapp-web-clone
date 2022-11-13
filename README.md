@@ -2,8 +2,8 @@
 
 ### Todo
 - [ ] Fix: When clicked archive message double click error
-- [ ] mute message notifications (with hover effects)
-- [ ] pin chat
+- [x] mute message notifications (with hover effects)
+- [x] pin chat
 - [ ] send photo video message
 - [ ] message emoji
 - [ ] contact info

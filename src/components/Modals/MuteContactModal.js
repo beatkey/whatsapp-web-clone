@@ -48,12 +48,12 @@ export default function MuteContactModal() {
                 <div className="Actions flex justify-end gap-3">
                     <button
                         onClick={closeModalHandle}
-                        className="p-[10px_24px] text-[#00a884] rounded-[3px] border tracking-[1.25px] text-[14px] border-[rgba(134,150,160,0.15)]">
+                        className="p-[10px_24px] text-[#00a884] rounded-[3px] border tracking-[1.25px] text-[14px] border-[rgba(134,150,160,0.15)] hover:bg-[rgba(233,237,239,0.05)] hover:text-[#06cf9c] transition-all">
                         CANCEL
                     </button>
                     <button
                         onClick={muteContactHandle}
-                        className="p-[10px_24px] text-[#111b21] bg-[#00a884] rounded-[3px] border tracking-[1.25px] text-[14px] border-[rgba(134,150,160,0.15)]">
+                        className="p-[10px_24px] text-[#111b21] bg-[#00a884] rounded-[3px] border tracking-[1.25px] text-[14px] border-[rgba(134,150,160,0.15)] hover:bg-[#06cf9c] transition-all">
                         MUTE NOTIFICATIONS
                     </button>
                 </div>
