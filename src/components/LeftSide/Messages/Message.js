@@ -54,11 +54,13 @@ export default function Message({value, activeMessageHandle, activeMessage}) {
         time = time.getHours() + ":" + (time.getMinutes() <= 9 ? '0' + time.getMinutes() : time.getMinutes())
 
         messageDetail = {
+            type: value.messages.at(-1)?.type,
             message: value.messages.at(-1).message,
             time,
             status: value.messages.at(-1).status
         }
     }
+    console.log(messageDetail)
 
     const menuItems = [
         "Archive Chat",
@@ -92,7 +94,9 @@ export default function Message({value, activeMessageHandle, activeMessage}) {
                             messageDetail ?
                                 <>
                                     <Status type={messageDetail.status}/>
-                                    {messageDetail.message}
+                                    {
+                                        messageDetail?.type
+                                    }
                                 </>
                                 :
                                 "Click and start a chat"

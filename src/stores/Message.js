@@ -92,9 +92,42 @@ const slice = createSlice({
             state.activeMessage = null
 
             localStorage.setItem("messages", JSON.stringify(current(state.messages)))
+        },
+        sendFile: (state, action) => {
+            const time = new Date().getTime()
+
+            let messages = state.messages.find(value => {
+                return value.name === state.activeMessage
+            })
+
+            const fileType = action.payload.fileType
+            const fileUrl = action.payload.fileUrl
+
+            if (messages === undefined) {
+                state.messages.push({
+                    name: state.activeMessage,
+                    messages: [{
+                        "type": fileType,
+                        "message": fileUrl,
+                        "time": time,
+                        "status": "sended"
+                    }]
+                })
+            } else {
+                state.messages.find(value => {
+                    return value.name === state.activeMessage
+                }).messages.push({
+                    "type": fileType,
+                    "message": fileUrl,
+                    "time": time,
+                    "status": "sended"
+                })
+            }
+
+            localStorage.setItem("messages", JSON.stringify(current(state.messages)))
         }
     }
 })
 
-export const {setActiveMessage, sendMessage, deleteMessage, archiveMessage, unArchiveMessage} = slice.actions
+export const {setActiveMessage, sendMessage, deleteMessage, archiveMessage, unArchiveMessage, sendFile} = slice.actions
 export default slice.reducer
