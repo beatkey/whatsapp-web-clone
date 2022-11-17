@@ -21,14 +21,19 @@ export default function Actions() {
     }
 
     function photoVideoUploadHandle(e){
+        const reader = new FileReader();
         const file = e.target.files[0]
-        const fileType = file.type.split("/")[0]
-        const fileUrl = URL.createObjectURL(file)
-        dispatch(sendFile({
-            fileType,
-            fileUrl
-        }))
-        setOpen(false)
+
+        reader.readAsDataURL(file)
+        reader.addEventListener("load", () => {
+            const fileType = file.type.split("/")[0]
+            const fileUrl = reader.result
+            dispatch(sendFile({
+                fileType,
+                fileUrl
+            }))
+            setOpen(false)
+        })
     }
 
     return (
@@ -128,7 +133,7 @@ export default function Actions() {
                             </div>
                             <div
                                 className="min-w-max opacity-0 group-hover:opacity-100 transition-all absolute left-full ml-3 px-4 py-1 text-[14px] rounded-full text-[#000] bg-[#fff]">
-                                Photos & Videos
+                                Photos
                             </div>
                             <input onChange={photoVideoUploadHandle} className="w-0 h-0" type="file"/>
                         </label>
