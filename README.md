@@ -12,3 +12,4 @@
 - [ ] search in chat
 - [ ] delete message in chat
 - [ ] timestamp to am pm format
+- [ ] archive chat photo message problem
