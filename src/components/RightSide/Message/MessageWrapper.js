@@ -2,11 +2,11 @@ const Image = ({base64, time}) => {
    return (
       <div className="MessageWrapper flex justify-end pl-[9%] pr-[9%]">
          <div
-            className="Message bg-[#005c4b] text-[#e9edef] text-[14px] inline-block rounded-md px-1.5 flex items-end">
-            <div className="mr-1 px-1 py-1.5">
+            className="Message relative bg-[#005c4b] text-[#e9edef] text-[14px] inline-block rounded-md flex items-end">
+            <div className="px-1 py-1">
                <img src={base64} className="rounded max-w-[240px]" alt=""/>
             </div>
-            <div className="flex items-center py-0.5 text-[hsla(0,0%,100%,0.6)]">
+            <div className="absolute right-2.5 bottom-1 flex items-center py-0.5 text-[rgba(233,237,239,.9)]">
                <div className="mr-1 text-[12px]">
                   {time}
                </div>

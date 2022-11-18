@@ -1,9 +1,11 @@
 import {useSelector} from "react-redux";
 
-import MuteContactModal from "./MuteContactModal";
+import MuteContact from "./MuteContact";
+import SendContact from "./SendContact";
 
 const modals = {
-    muteContact: <MuteContactModal />
+    muteContact: <MuteContact />,
+    sendContact: <SendContact />,
 }
 
 export default function Modals(){

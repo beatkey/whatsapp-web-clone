@@ -1,6 +1,7 @@
 import {useCallback, useState} from "react";
 import {useDispatch} from "react-redux";
 import {sendFile, sendMessage} from "stores/Message";
+import {openModal} from "../../../stores/Modal";
 
 export default function Actions() {
     const dispatch = useDispatch()
@@ -36,6 +37,10 @@ export default function Actions() {
         })
     }
 
+    function openSendContactModal(){
+        dispatch(openModal("sendContact"))
+    }
+
     return (
         <div className="bg-color2 h-[62px] px-5 pl-2 flex border-l border-[rgba(134,150,160,0.15)]">
             <div className="flex text-[#8696a0] mr-2">
@@ -57,7 +62,7 @@ export default function Actions() {
                     </div>
                     <div
                         className={"absolute transition-all top-0 left-1/2 -translate-x-1/2 -translate-y-full " + (open ? "opacity-100 pointer-events-auto" : 'opacity-0 pointer-events-none')}>
-                        <div className="group flex items-center rounded-full overflow-hidden mb-3">
+                        <div onClick={openSendContactModal} className="group flex items-center rounded-full overflow-hidden mb-3">
                             <div>
                                 <svg viewBox="0 0 53 53" width="53" height="53" className="">
                                     <defs>

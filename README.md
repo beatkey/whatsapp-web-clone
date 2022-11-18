@@ -4,8 +4,11 @@
 - [ ] Fix: When clicked archive message double click error
 - [x] mute message notifications (with hover effects)
 - [x] pin chat
-- [ ] send photo video message
+- [x] send photo video message
+- [ ] search contact on new chat
+- [ ] send document and contact
 - [ ] message emoji
 - [ ] contact info
 - [ ] search in chat
 - [ ] delete message in chat
+- [ ] timestamp to am pm format

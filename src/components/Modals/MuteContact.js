@@ -4,7 +4,7 @@ import {useSelector, useDispatch} from "react-redux";
 import {closeModal} from "../../stores/Modal";
 import {muteContact} from "../../stores/Contacts";
 
-export default function MuteContactModal() {
+export default function MuteContact() {
     const dispatch = useDispatch()
     const currentContact = useSelector(state => state.modal.currentContact)
     const [activeTime, setActiveTime] = useState(0)
