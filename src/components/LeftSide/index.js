@@ -30,7 +30,7 @@ export default function LeftSide() {
     return (
         <div className="LeftSide h-full bg-color1 w-[30%] relative overflow-hidden">
             <Head handleDrawerOpen={handleDrawerOpen}/>
-            <Search setFilterText={setFilterText}/>
+            <Search filterText={filterText} setFilterText={setFilterText}/>
             <Messages handleArchiveOpen={handleArchiveOpen} filterText={filterText}/>
             <NewChat drawerOpen={open} handleDrawerClose={handleDrawerClose}/>
             <Archive drawerOpen={archiveOpen} handleArchiveClose={handleArchiveClose}/>

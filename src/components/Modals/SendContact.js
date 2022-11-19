@@ -6,10 +6,16 @@ import {UserAvatar} from "../Global";
 
 export default function MuteContactModal() {
    const dispatch = useDispatch()
-   const contacts = [
-      ...useSelector(state => state.contacts),
-      ...useSelector(state => state.contacts)
-   ] //useSelector(state => state.contacts)
+   const [filterText, setFilterText] = useState("");
+   const contacts = useSelector(state => {
+      const all = state.contacts
+
+      if (filterText.length > 0) {
+         return all.filter(value => value.name.toLowerCase().includes(filterText.toLowerCase()))
+      }
+
+      return all
+   })
    const [selectedContacts, setSelectedContacts] = useState([])
 
    function closeModalHandle() {
@@ -45,14 +51,25 @@ export default function MuteContactModal() {
             </div>
             <div className="Search flex items-center px-3 py-2">
                <div className="InputWrapper bg-color2 w-full px-3 py-1.5 flex items-center rounded-lg">
-                  <div className="Icon cursor-pointer text-icon mr-7">
-                     <svg viewBox="0 0 24 24" width="24" height="24" className="">
-                        <path fill="currentColor"
-                              d="M15.009 13.805h-.636l-.22-.219a5.184 5.184 0 0 0 1.256-3.386 5.207 5.207 0 1 0-5.207 5.208 5.183 5.183 0 0 0 3.385-1.255l.221.22v.635l4.004 3.999 1.194-1.195-3.997-4.007zm-4.808 0a3.605 3.605 0 1 1 0-7.21 3.605 3.605 0 0 1 0 7.21z"></path>
-                     </svg>
+                  <div className="Icon relative cursor-pointer text-icon mr-7">
+                     <div className={`transition-all ${(!filterText.length > 0 ? "rotate-0 opacity-100" : "rotate-[135deg] opacity-0")}`}>
+                        <svg viewBox="0 0 24 24" width="24" height="24" className="">
+                           <path fill="currentColor"
+                                 d="M15.009 13.805h-.636l-.22-.219a5.184 5.184 0 0 0 1.256-3.386 5.207 5.207 0 1 0-5.207 5.208 5.183 5.183 0 0 0 3.385-1.255l.221.22v.635l4.004 3.999 1.194-1.195-3.997-4.007zm-4.808 0a3.605 3.605 0 1 1 0-7.21 3.605 3.605 0 0 1 0 7.21z"></path>
+                        </svg>
+                     </div>
+                     <div
+                         onClick={() => setFilterText("")}
+                         className={`absolute left-0 top-0 text-[#00a884] transition-all ${(!filterText.length > 0 ? "opacity-0 scale-[.8] rotate-[225deg]" : "scale-100 opacity-100 rotate-0")}`}>
+                        <svg viewBox="0 0 24 24" height="24" width="24" preserveAspectRatio="xMidYMid meet" className=""
+                             version="1.1" x="0px" y="0px" enableBackground="new 0 0 24 24" xmlSpace="preserve">
+                           <path fill="currentColor" d="M12,4l1.4,1.4L7.8,11H20v2H7.8l5.6,5.6L12,20l-8-8L12,4z"></path>
+                        </svg>
+                     </div>
                   </div>
                   <input
-                     //onChange={e => setFilterText(e.target.value)}
+                     onChange={e => setFilterText(e.target.value)}
+                     value={filterText}
                      className="w-full bg-[transparent] outline-none placeholder:text-icon placeholder:text-[14px] text-[#d1d7db] text-[15px]"
                      type="text"
                      placeholder="Search..."/>
@@ -66,10 +83,11 @@ export default function MuteContactModal() {
                   {
                      contacts.map((contact, contactIndex) =>
                         <label key={contactIndex}
-                               className={"Message group cursor-pointer flex items-center pl-3.5 hover:bg-[#202c33]"}>
-                           <div className="w-16 flex items-center justify-center">
-                              <input onChange={selectContactHandle} value={contact.name} name="contacts[]"
+                               className={"Message group cursor-pointer flex items-center pl-2.5 hover:bg-[#202c33]"}>
+                           <div className="w-20 flex items-center justify-center">
+                              <input className="peer w-0 h-0 opacity-0" onChange={selectContactHandle} value={contact.name} name="contacts[]"
                                      type="checkbox"/>
+                              <div className="peer-checked:border-[#00a884] peer-checked:bg-[#00a884] transition-all relative w-[18px] h-[18px] border-2 rounded-[2px] border-[rgba(209,215,219,.75)] after:content-[] peer-checked:after:content-[''] after:transition-all after:rotate-[45deg] after:border-[#111b21] after:border-r-[2px] after:border-b-[2px] after:block after:w-[6px] after:h-[11px] after:absolute after:left-[4px] after:top-[1px]"></div>
                            </div>
                            <div className="Img mr-3">
                               <div className="w-[49px] h-[49px] rounded-full overflow-hidden">
@@ -82,9 +100,6 @@ export default function MuteContactModal() {
                                  className="Top flex items-center justify-between text-[#e9edef] text-[17px]">
                                  <div>
                                     {contact.name}
-                                 </div>
-                                 <div className="Time text-[12px] text-[#8696a0]">
-
                                  </div>
                               </div>
                               <div
