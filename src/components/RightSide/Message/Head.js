@@ -8,10 +8,14 @@ export default function Head() {
     const activeMessage = useSelector(state => state.message.activeMessage)
     const contact = GetContact(activeMessage);
 
+    function openContactInfo(){
+        console.log("dd")
+    }
+
     return (
         <div
             className="bg-color2 h-[60px] px-4 pr-6 flex items-center justify-between border-l border-[rgba(134,150,160,0.15)]">
-            <div className="flex items-center text-[#e9edef]">
+            <div onClick={openContactInfo} className="cursor-pointer flex items-center text-[#e9edef]">
                 <div className="w-[40px] h-[40px] rounded-full overflow-hidden mr-3">
                     <UserAvatar type={contact.image}/>
                 </div>

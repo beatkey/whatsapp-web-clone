@@ -1,5 +1,6 @@
 import Default from "./Default";
 import Message from "./Message";
+import ContactInfo from "./ContactInfo";
 
 import {useSelector} from "react-redux";
 
@@ -16,7 +17,10 @@ export default function RightSide() {
                     ?
                     <Default/>
                     :
-                    <Message messages={messages}/>
+                    <div className="flex h-full">
+                        <Message messages={messages}/>
+                        {/*<ContactInfo />*/}
+                    </div>
             }
         </div>
     )
