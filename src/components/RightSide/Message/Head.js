@@ -1,16 +1,29 @@
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import {UserAvatar} from "components/Global";
 
 import {GetContact} from "helpers";
+import {useEffect, useState} from "react";
+import {setContactInfo} from "stores/General";
 
 export default function Head() {
+    const dispatch = useDispatch()
     const activeMessage = useSelector(state => state.message.activeMessage)
     const contact = GetContact(activeMessage);
+    const [contactTextHide, setContactTextHide] = useState(false)
 
     function openContactInfo(){
-        console.log("dd")
+        dispatch(setContactInfo(activeMessage))
     }
+
+    useEffect(() => {
+        contactTextHide && setContactTextHide(false)
+        let timer = setTimeout(() => {
+            setContactTextHide(true)
+        }, 2000)
+
+        return () => clearTimeout(timer)
+    }, [activeMessage])
 
     return (
         <div
@@ -19,7 +32,10 @@ export default function Head() {
                 <div className="w-[40px] h-[40px] rounded-full overflow-hidden mr-3">
                     <UserAvatar type={contact.image}/>
                 </div>
-                {contact.name}
+                <div className="flex flex-col">
+                    <div>{contact.name}</div>
+                    {!contactTextHide && <div className="text-[13px] text-[#8696A0]">Click here for contact info</div>}
+                </div>
             </div>
             <div className="flex items-center text-[#aebac1] gap-4">
                 <div>

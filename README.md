@@ -6,7 +6,8 @@
 - [x] pin chat
 - [x] send photo video message
 - [ ] search contact on new chat
-- [ ] send document and contact
+- [ ] send document
+- [x] send contact
 - [ ] message emoji
 - [ ] contact info
 - [ ] search in chat

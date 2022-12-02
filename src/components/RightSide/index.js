@@ -6,6 +6,7 @@ import {useSelector} from "react-redux";
 
 export default function RightSide() {
     const activeMessage = useSelector(state => state.message.activeMessage)
+    const activeContactInfo = useSelector(state => state.general.contactInfo)
     let messages = useSelector(state => state.message.messages).find(value => {
         return value.name === activeMessage
     })
@@ -19,7 +20,7 @@ export default function RightSide() {
                     :
                     <div className="flex h-full">
                         <Message messages={messages}/>
-                        {/*<ContactInfo />*/}
+                        {activeContactInfo && <ContactInfo />}
                     </div>
             }
         </div>
