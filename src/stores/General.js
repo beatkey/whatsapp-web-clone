@@ -8,6 +8,9 @@ const slice = createSlice({
    name: "general",
    initialState,
    reducers: {
+      closeContactInfo: (state, action) => {
+         state.contactInfo = null
+      },
       setContactInfo: (state, action) => {
          state.contactInfo = action.payload
       }
@@ -15,6 +18,7 @@ const slice = createSlice({
 })
 
 export const {
+   closeContactInfo,
    setContactInfo
 } = slice.actions
 export default slice.reducer

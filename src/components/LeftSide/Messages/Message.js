@@ -7,7 +7,7 @@ import {UserAvatar, Status} from "components/Global";
 
 import {useDispatch} from "react-redux";
 import {deleteMessage, archiveMessage} from "stores/Message";
-import {openModal, setCurrentContact} from "stores/Modal";
+import {openModal} from "stores/Modal";
 
 import {pinContact, unMuteContact, unPinContact} from "../../../stores/Contacts";
 
@@ -31,7 +31,6 @@ export default function Message({value, activeMessageHandle, activeMessage}) {
             if (value?.muted) {
                dispatch(unMuteContact(name))
             } else { // mute
-               dispatch(setCurrentContact(name))
                dispatch(openModal("muteContact"))
             }
             break

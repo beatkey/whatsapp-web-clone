@@ -1,15 +1,19 @@
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {UserAvatar} from "../../Global";
 import {GetContact} from "../../../helpers";
+import {closeContactInfo} from "../../../stores/General";
+import {openModal} from "../../../stores/Modal";
 
 export default function ContactInfo() {
-   const activeContactInfo = useSelector(state => state.general.contactInfo)
-   const contact = GetContact(activeContactInfo)
+   const dispatch = useDispatch()
+   const activeMessage = useSelector(state => state.message.activeMessage)
+   const contact = GetContact(activeMessage)
+   console.log(contact)
 
    return (
       <div className="w-[75%] grid grid-rows-[60px_calc(100%-60px)] border-l bg-[#0b1317] border-[#8696a0]">
          <div className="Head flex items-center bg-[#202c33] p-5 py-4 text-[16px] text-[#d1d7db]">
-            <div className="cursor-pointer mr-5">
+            <div onClick={() => dispatch(closeContactInfo())} className="cursor-pointer mr-5">
                <svg viewBox="0 0 24 24" height="24" width="24" preserveAspectRatio="xMidYMid meet" className=""
                     fill="#8696a0" enableBackground="new 0 0 24 24" xmlSpace="preserve">
                   <path enableBackground="new"
@@ -29,7 +33,7 @@ export default function ContactInfo() {
                <div className="text-[16px] text-[#E9EDEF] mt-1">{contact.about}</div>
             </div>
             <div className="bg-[#111b21] my-3">
-               <div className="flex py-5 px-9 items-center text-[#e9edef] text-[16px]">
+               <div className="cursor-pointer flex py-5 px-9 items-center text-[#e9edef] text-[16px]">
                   <div className="mr-5 text-[#8697a0]">
                      <svg viewBox="0 0 16 15" height="20" preserveAspectRatio="xMidYMid meet" className="">
                         <path fill="currentColor"
@@ -47,7 +51,8 @@ export default function ContactInfo() {
                   </div>
                </div>
 
-               <div className="flex py-5 px-9 items-center text-[#e9edef] text-[16px]">
+               <div onClick={() => dispatch(openModal("muteContact"))}
+                    className="cursor-pointer flex py-5 px-9 items-center text-[#e9edef] text-[16px]">
                   <div className="mr-5 text-[#8697a0]">
                      <svg viewBox="0 0 24 24" height="20" preserveAspectRatio="xMidYMid meet" className="">
                         <path fill="currentColor"
@@ -65,7 +70,7 @@ export default function ContactInfo() {
                   </div>
                </div>
 
-               <div className="flex py-5 px-9 items-center text-[#e9edef] text-[16px]">
+               <div className="cursor-pointer flex py-5 px-9 items-center text-[#e9edef] text-[16px]">
                   <div className="mr-5 text-[#8697a0]">
                      <svg height="20" viewBox="0 0 36 36" fill="none" preserveAspectRatio="xMidYMid meet" className="">
                         <path fill="currentColor" fillRule="evenodd" clipRule="evenodd"
@@ -85,7 +90,7 @@ export default function ContactInfo() {
                   </div>
                </div>
 
-               <div className="flex py-5 px-9 items-center text-[#e9edef] text-[16px]">
+               <div className="cursor-pointer flex py-5 px-9 items-center text-[#e9edef] text-[16px]">
                   <div className="mr-5 text-[#8697a0]">
                      <svg viewBox="0 0 24 24" height="20" preserveAspectRatio="xMidYMid meet" className="">
                         <path fill="currentColor"
@@ -103,30 +108,50 @@ export default function ContactInfo() {
                   </div>
                </div>
 
-               <div className="flex py-5 px-9 items-center text-[#f15c6d] text-[16px] hover:bg-[#202c33]">
+               <div
+                  onClick={() => {
+                     contact?.blocked ? dispatch(openModal("unBlockContact")) : dispatch(openModal("blockContact"))
+                  }}
+                  className={"cursor-pointer flex py-3.5 px-9 items-center text-[16px] hover:bg-[#202c33] " + (contact?.blocked ? "text-[#71eb85]" : "text-[#f15c6d]")}>
                   <div className="mr-5">
                      <svg viewBox="0 0 24 24" height="24" width="24" preserveAspectRatio="xMidYMid meet" className=""
-                          version="1.1" x="0px" y="0px" enableBackground="new 0 0 24 24" xmlSpace="preserve"><path fill="currentColor" d="M12,2.8c-5.3,0-9.7,4.3-9.7,9.7s4.3,9.7,9.7,9.7s9.7-4.3,9.7-9.7S17.3,2.8,12,2.8z  M4.7,12.5c0-4,3.3-7.3,7.3-7.3c1.6,0,3.1,0.5,4.3,1.4L6.1,16.8C5.2,15.6,4.7,14.1,4.7,12.5z M12,19.8c-1.6,0-3-0.5-4.2-1.4 L17.9,8.3c0.9,1.2,1.4,2.6,1.4,4.2C19.3,16.5,16,19.8,12,19.8z"></path></svg>
+                          version="1.1" x="0px" y="0px" enableBackground="new 0 0 24 24" xmlSpace="preserve">
+                        <path fill="currentColor"
+                              d="M12,2.8c-5.3,0-9.7,4.3-9.7,9.7s4.3,9.7,9.7,9.7s9.7-4.3,9.7-9.7S17.3,2.8,12,2.8z  M4.7,12.5c0-4,3.3-7.3,7.3-7.3c1.6,0,3.1,0.5,4.3,1.4L6.1,16.8C5.2,15.6,4.7,14.1,4.7,12.5z M12,19.8c-1.6,0-3-0.5-4.2-1.4 L17.9,8.3c0.9,1.2,1.4,2.6,1.4,4.2C19.3,16.5,16,19.8,12,19.8z"></path>
+                     </svg>
                   </div>
                   <div>
-                     Block {contact.name}
+                     {contact?.blocked ? "Unblock " : "Block "}
+                     {contact.name}
                   </div>
                </div>
 
-               <div className="flex py-5 px-9 items-center text-[#f15c6d] text-[16px] hover:bg-[#202c33]">
+               <div onClick={() => dispatch(openModal("reportContact"))}
+                    className="cursor-pointer flex py-3.5 px-9 items-center text-[#f15c6d] text-[16px] hover:bg-[#202c33]">
                   <div className="mr-5">
                      <svg viewBox="0 0 24 24" height="24" width="24" preserveAspectRatio="xMidYMid meet" className=""
-                          version="1.1" x="0px" y="0px" enableBackground="new 0 0 24 24" xmlSpace="preserve"><g><g id="thumb-down"><path fill="currentColor" d="M14.091,4.2H6.318c-0.691,0-1.295,0.432-1.555,1.036l-2.591,6.132C2.086,11.541,2,11.714,2,11.973v1.641 l0,0V13.7c0,0.95,0.777,1.727,1.727,1.727h5.441L8.305,19.4c0,0.086,0,0.173,0,0.259c0,0.345,0.173,0.691,0.345,0.95l0.95,0.864 l5.7-5.7c0.345-0.345,0.518-0.777,0.518-1.209V5.927C15.818,4.977,15.041,4.2,14.091,4.2z M17.545,4.2v10.364H21V4.2H17.545z"></path></g></g></svg>
+                          version="1.1" x="0px" y="0px" enableBackground="new 0 0 24 24" xmlSpace="preserve">
+                        <g>
+                           <g id="thumb-down">
+                              <path fill="currentColor"
+                                    d="M14.091,4.2H6.318c-0.691,0-1.295,0.432-1.555,1.036l-2.591,6.132C2.086,11.541,2,11.714,2,11.973v1.641 l0,0V13.7c0,0.95,0.777,1.727,1.727,1.727h5.441L8.305,19.4c0,0.086,0,0.173,0,0.259c0,0.345,0.173,0.691,0.345,0.95l0.95,0.864 l5.7-5.7c0.345-0.345,0.518-0.777,0.518-1.209V5.927C15.818,4.977,15.041,4.2,14.091,4.2z M17.545,4.2v10.364H21V4.2H17.545z"></path>
+                           </g>
+                        </g>
+                     </svg>
                   </div>
                   <div>
                      Report {contact.name}
                   </div>
                </div>
 
-               <div className="flex py-5 px-9 items-center text-[#f15c6d] text-[16px] hover:bg-[#202c33]">
+               <div onClick={() => dispatch(openModal("deleteChat"))}
+                    className="cursor-pointer flex py-3.5 px-9 items-center text-[#f15c6d] text-[16px] hover:bg-[#202c33]">
                   <div className="mr-5 ">
                      <svg viewBox="0 0 24 24" height="24" width="24" preserveAspectRatio="xMidYMid meet" className=""
-                          version="1.1" x="0px" y="0px" enableBackground="new 0 0 24 24" xmlSpace="preserve"><path fill="currentColor" d="M6,18c0,1.1,0.9,2,2,2h8c1.1,0,2-0.9,2-2V6H6V18z M19,3h-3.5l-1-1h-5l-1,1H5v2h14V3z"></path></svg>
+                          version="1.1" x="0px" y="0px" enableBackground="new 0 0 24 24" xmlSpace="preserve">
+                        <path fill="currentColor"
+                              d="M6,18c0,1.1,0.9,2,2,2h8c1.1,0,2-0.9,2-2V6H6V18z M19,3h-3.5l-1-1h-5l-1,1H5v2h14V3z"></path>
+                     </svg>
                   </div>
                   <div>
                      Delete chat

@@ -9,8 +9,9 @@
 - [ ] send document
 - [x] send contact
 - [ ] message emoji
-- [ ] contact info
+- [x] contact info
 - [ ] search in chat
 - [ ] delete message in chat
 - [ ] timestamp to am pm format
 - [ ] archive chat photo message problem
+- [ ] message time on chat

@@ -2,7 +2,6 @@ import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
     activeModal: null,
-    currentContact: null
 }
 
 const slice = createSlice({
@@ -14,9 +13,6 @@ const slice = createSlice({
         },
         closeModal: (state, action) => {
             state.activeModal = null
-        },
-        setCurrentContact: (state, action) => {
-            state.currentContact = action.payload
         }
     }
 })
@@ -24,6 +20,5 @@ const slice = createSlice({
 export const {
     openModal,
     closeModal,
-    setCurrentContact
 } = slice.actions
 export default slice.reducer

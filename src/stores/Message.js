@@ -72,6 +72,7 @@ const slice = createSlice({
         deleteMessage: (state, action) => {
             let messages = state.messages.filter(message => message.name !== action.payload)
             state.messages = messages
+            state.activeMessage = null
 
             localStorage.setItem("messages", JSON.stringify(messages))
         },

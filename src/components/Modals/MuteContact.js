@@ -6,7 +6,7 @@ import {muteContact} from "../../stores/Contacts";
 
 export default function MuteContact() {
     const dispatch = useDispatch()
-    const currentContact = useSelector(state => state.modal.currentContact)
+    const activeMessage = useSelector(state => state.message.activeMessage)
     const [activeTime, setActiveTime] = useState(0)
     const times = [
         "8 Hours",
@@ -19,7 +19,7 @@ export default function MuteContact() {
     }
 
     function muteContactHandle(){
-        dispatch(muteContact(currentContact))
+        dispatch(muteContact(activeMessage))
         dispatch(closeModal())
     }
 
@@ -28,7 +28,7 @@ export default function MuteContact() {
             <div
                 className="Content w-[500px] rounded-[3px] bg-[#3b4a54] p-5 shadow-[0_17px_50px_0_rgba(11,20,26,.19),0_12px_15px_0_rgba(11,20,26,.24)] text-[#d1d7db]">
                 <div className="Head mb-4 text-[20px]">
-                    Mute "{currentContact}" for...
+                    Mute "{activeMessage}" for...
                 </div>
                 <form className="Main mb-9">
                     <ul>
