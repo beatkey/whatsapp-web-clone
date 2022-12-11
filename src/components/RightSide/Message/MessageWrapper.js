@@ -1,5 +1,16 @@
+import {useState} from "react";
+
 import {GetContact} from "helpers"
 import {UserAvatar} from "../../Global";
+
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import * as React from "react";
+import {archiveMessage, deleteMessage} from "../../../stores/Message";
+import {pinContact, unMuteContact, unPinContact} from "../../../stores/Contacts";
+import {openModal} from "../../../stores/Modal";
+import {useDispatch} from "react-redux";
 
 const Image = ({base64, time}) => {
    return (
@@ -45,10 +56,37 @@ const LeftText = ({message, time}) => {
 }
 
 const RightText = ({message, time}) => {
+   const dispatch = useDispatch()
+   const [anchorEl, setAnchorEl] = useState(null);
+   const open = Boolean(anchorEl);
+   const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+   };
+   const handleClose = (type, name) => {
+      setAnchorEl(null);
+      switch (type){
+         case 0: // message info
+         case 1: // reply
+         case 2: // react to message
+         case 3: // forward to message
+         case 4: // star message
+         case 5: // delete message
+      }
+   };
+
+   const menuItems = [
+      "Message info",
+      "Reply",
+      "React to message",
+      "Forward to message",
+      "Star message",
+      "Delete message",
+   ]
+
    return (
       <div className="MessageWrapper flex justify-end pl-[9%] pr-[9%]">
          <div
-            className="Message bg-[#005c4b] text-[#e9edef] text-[14px] inline-block rounded-md px-1.5 flex items-end">
+            className="group Message relative bg-[#005c4b] text-[#e9edef] text-[14px] inline-block rounded-md overflow-hidden px-1.5 flex items-end">
             <div className="mr-1 px-1 py-1.5">
                {message}
             </div>
@@ -64,6 +102,26 @@ const RightText = ({message, time}) => {
                   </svg>
                </div>
             </div>
+            <div onClick={handleClick} className={"w-0 group-hover:w-auto overflow-hidden cursor-pointer MessageActions absolute right-0 top-0 text-[hsla(0,0%,100%,0.5)] " + (open ? "w-auto" : "")}>
+               <div className="p-2">
+                  <svg viewBox="0 0 18 18" height="18" width="18" preserveAspectRatio="xMidYMid meet" className=""
+                       version="1.1" x="0px" y="0px" enableBackground="new 0 0 18 18" xmlSpace="preserve"><path fill="currentColor" d="M3.3,4.6L9,10.3l5.7-5.7l1.6,1.6L9,13.4L1.7,6.2L3.3,4.6z"></path></svg>
+               </div>
+            </div>
+            <Menu
+               id="basic-menu"
+               anchorEl={anchorEl}
+               open={open}
+               onClose={handleClose}
+               MenuListProps={{
+                  'aria-labelledby': 'basic-button',
+               }}
+            >
+               {
+                  menuItems.map((menuItem, index) => <MenuItem key={index}
+                                                               onClick={() => handleClose(index)}>{menuItem}</MenuItem>)
+               }
+            </Menu>
          </div>
       </div>
    )
