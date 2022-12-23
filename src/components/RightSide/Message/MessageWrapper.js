@@ -3,14 +3,11 @@ import {useState} from "react";
 import {GetContact} from "helpers"
 import {UserAvatar} from "../../Global";
 
-import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import * as React from "react";
-import {archiveMessage, deleteMessage} from "../../../stores/Message";
-import {pinContact, unMuteContact, unPinContact} from "../../../stores/Contacts";
-import {openModal} from "../../../stores/Modal";
-import {useDispatch} from "react-redux";
+import {setActiveReply} from "../../../stores/Message";
+import {useDispatch, useSelector} from "react-redux";
 
 const Image = ({base64, time}) => {
    return (
@@ -55,18 +52,22 @@ const LeftText = ({message, time}) => {
    )
 }
 
-const RightText = ({message, time}) => {
+const RightText = ({message, time, reply}) => {
+   console.log(reply)
    const dispatch = useDispatch()
+   const activeMessage = useSelector(state => state.message.activeMessage)
    const [anchorEl, setAnchorEl] = useState(null);
    const open = Boolean(anchorEl);
    const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
    };
-   const handleClose = (type, name) => {
+   const handleClose = (type) => {
       setAnchorEl(null);
       switch (type){
          case 0: // message info
          case 1: // reply
+            dispatch(setActiveReply({activeMessage, message}))
+            break
          case 2: // react to message
          case 3: // forward to message
          case 4: // star message
@@ -83,8 +84,20 @@ const RightText = ({message, time}) => {
       "Delete message",
    ]
 
+   const Reply = ({message}) => {
+      console.log(message)
+      return (
+         <div className="relative">
+            {message}
+         </div>
+      )
+   }
+
    return (
       <div className="MessageWrapper flex justify-end pl-[9%] pr-[9%]">
+         {
+            (reply && <Reply message={reply.message} />)
+         }
          <div
             className="group Message relative bg-[#005c4b] text-[#e9edef] text-[14px] inline-block rounded-md overflow-hidden px-1.5 flex items-end">
             <div className="mr-1 px-1 py-1.5">
@@ -183,7 +196,7 @@ export default function MessageWrapper(value) {
       default:
          return value.status !== "received"
             ?
-            <RightText message={value.message} time={time}/>
+            <RightText message={value.message} time={time} reply={value?.reply}/>
             :
             <LeftText message={value.message} time={time}/>
    }
