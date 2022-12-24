@@ -1,20 +1,24 @@
 import {createSlice, current} from "@reduxjs/toolkit";
+import {UUID} from "../helpers";
 
 let messages = [
    {
       "name": "Kawasaki",
       "messages": [
          {
+            "id": UUID(),
             "message": "aaa",
             "time": 1668355783752,
             "status": "sended"
          },
          {
+            "id": UUID(),
             "message": "aaa",
             "time": 1668355783752,
             "status": "received"
          },
          {
+            "id": UUID(),
             "message": "im okkk",
             "time": 1668355783752,
             "status": "received"
@@ -50,8 +54,9 @@ const slice = createSlice({
          })
 
          const message = {
+            "id": UUID(),
             "message": action.payload,
-            "time": time,
+            time,
             "status": "sended",
             "reply": activeReply && activeReply
          }
@@ -75,8 +80,8 @@ const slice = createSlice({
 
          localStorage.setItem("messages", JSON.stringify(current(state.messages)))
       },
-      deleteMessage: (state, action) => {
-         let messages = state.messages.filter(message => message.name !== action.payload)
+      deleteChat: (state, action) => {
+         const messages = state.messages.filter(message => message.name !== action.payload)
          state.messages = messages
          state.activeMessage = null
 
@@ -180,6 +185,18 @@ const slice = createSlice({
       },
       deleteActiveReply: (state, action) => {
          state.activeReply = state.activeReply.filter(value => value.name !== action.payload)
+      },
+      deleteMessage: (state, action) => {
+         const contact =  state.messages.find(value => value.name === action.payload.name)
+         switch (action.payload.type){
+            case 0: // delete for me
+               contact.messages = contact.messages.filter(message => message.id !== action.payload.messageID)
+               break
+            case 1: // delete for everyone
+               contact.messages.find(message => message.id === action.payload.messageID)["deleted"] = true
+
+               localStorage.setItem("messages", JSON.stringify(current(state.messages)))
+         }
       }
    }
 })
@@ -187,12 +204,13 @@ const slice = createSlice({
 export const {
    setActiveMessage,
    sendMessage,
-   deleteMessage,
+   deleteChat,
    archiveMessage,
    unArchiveMessage,
    sendFile,
    sendContact,
    setActiveReply,
-   deleteActiveReply
+   deleteActiveReply,
+   deleteMessage
 } = slice.actions
 export default slice.reducer

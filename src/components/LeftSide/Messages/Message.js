@@ -6,7 +6,7 @@ import MenuItem from '@mui/material/MenuItem';
 import {UserAvatar, Status} from "components/Global";
 
 import {useDispatch} from "react-redux";
-import {deleteMessage, archiveMessage} from "stores/Message";
+import {deleteChat, archiveMessage} from "stores/Message";
 import {openModal} from "stores/Modal";
 
 import {pinContact, unMuteContact, unPinContact} from "../../../stores/Contacts";
@@ -35,7 +35,7 @@ export default function Message({value, activeMessageHandle, activeMessage}) {
             }
             break
          case 3: // delete chat
-            dispatch(deleteMessage(name))
+            dispatch(deleteChat(name))
             break
          case 4: // unpin chat
             if (value?.pinned) {

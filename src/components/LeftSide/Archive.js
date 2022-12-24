@@ -2,7 +2,7 @@ import {useDispatch, useSelector} from "react-redux";
 
 import {Status, UserAvatar} from "components/Global"
 import {GetContact} from "helpers";
-import {unArchiveMessage, deleteMessage, setActiveMessage} from "stores/Message";
+import {unArchiveMessage, deleteChat, setActiveMessage} from "stores/Message";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import * as React from "react";
@@ -34,7 +34,7 @@ function Contact({contact}) {
                 dispatch(unArchiveMessage(name))
                 break
             case 2: // delete chat
-                dispatch(deleteMessage(name))
+                dispatch(deleteChat(name))
                 break
         }
     };

@@ -7,6 +7,7 @@ import ReportContact from "./ReportContact";
 import BlockContact from "./BlockContact";
 import UnBlockContact from "./UnBlockContact";
 import ProfilePhoto from "./ProfilePhoto";
+import DeleteMessage from "./DeleteMessage";
 
 const modals = {
     muteContact: <MuteContact />,
@@ -15,7 +16,8 @@ const modals = {
     reportContact: <ReportContact />,
     blockContact: <BlockContact />,
     unBlockContact: <UnBlockContact />,
-    profilePhoto: <ProfilePhoto />
+    profilePhoto: <ProfilePhoto />,
+    deleteMessage: <DeleteMessage />
 }
 
 export default function Modals(){

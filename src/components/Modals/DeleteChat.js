@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {closeModal} from "../../stores/Modal";
-import {deleteMessage} from "../../stores/Message";
+import {deleteChat} from "../../stores/Message";
 
 export default function DeleteChat() {
    const dispatch = useDispatch()
@@ -11,7 +11,7 @@ export default function DeleteChat() {
    }
 
    function deleteChatHandle(){
-      dispatch(deleteMessage(activeMessage))
+      dispatch(deleteChat(activeMessage))
       dispatch(closeModal())
    }
 
