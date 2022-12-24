@@ -52,13 +52,13 @@ export default function Actions() {
          blocked contact {activeMessage}</div>
    }
 
-   const ReplyMessage = ({name, message}) => {
+   const ReplyMessage = ({name, message, sender}) => {
       return (
          <div className="w-full flex items-center bg-color2 h-[70px] py-1.5 absolute -top-[97%] left-0 z-10">
             <div className="ml-16 flex w-full h-full rounded-l overflow-hidden bg-[rgba(11,20,26,.75)]">
                <div className="w-1 h-full bg-[#06cf9c]"></div>
                <div className="ml-3 my-2 text-[12.6px]">
-                  <div className="text-[#06cf9c]">{name}</div>
+                  <div className="text-[#06cf9c]">{sender}</div>
                   <div className="text-[hsla(0,0%,100%,0.6)]">{message}</div>
                </div>
             </div>
@@ -182,7 +182,7 @@ export default function Actions() {
             </div>
             <form onSubmit={messageHandle} className="flex items-center w-full">
                <div className="w-full">
-                  <input ref={input} value={message} onChange={(event) => setMessage(event.target.value)} type="text"
+                  <input id="messageInput" ref={input} value={message} onChange={(event) => setMessage(event.target.value)} type="text"
                          placeholder="Type a message"
                          className="bg-[#2a3942] outline-none text-[#d1d7db] border border-[#2a3942] rounded-lg py-2 px-3 w-full placeholder:text-[15px] placeholder:pl-1 placeholder:text-[#8696a0]"/>
                </div>

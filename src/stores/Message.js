@@ -69,6 +69,10 @@ const slice = createSlice({
             })
          }
 
+         if(activeReply){
+            state.activeReply = state.activeReply.filter(value => value.name !== state.activeMessage)
+         }
+
          localStorage.setItem("messages", JSON.stringify(current(state.messages)))
       },
       deleteMessage: (state, action) => {
@@ -162,11 +166,13 @@ const slice = createSlice({
 
          if(exist){
             exist.message = action.payload.message
+            exist.sender = action.payload.sender
          }else{
             state.activeReply = [
                {
                   name: action.payload.activeMessage,
-                  message: action.payload.message
+                  message: action.payload.message,
+                  sender: action.payload.sender
                },
                ...state.activeReply
             ]
