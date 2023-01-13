@@ -9,7 +9,6 @@ import * as React from "react";
 import {setActiveReply} from "../../../stores/Message";
 import {useDispatch, useSelector} from "react-redux";
 import {openModal, setDeleteMessageID} from "../../../stores/Modal";
-import {retry} from "@reduxjs/toolkit/query";
 
 const menuItems = [
    "Message info",
@@ -238,25 +237,29 @@ const Contact = ({message, time}) => {
    )
 }
 
-const DeletedMessage = () => {
+const DeletedMessage = ({time}) => {
    return (
       <div className="MessageWrapper flex justify-end pl-[9%] pr-[9%]">
          <div
-            className="group Message relative bg-[#005c4b] text-[#e9edef] text-[14px] inline-block rounded-md overflow-hidden px-1.5">
+            className="group Message relative bg-[#005c4b] text-[#667781] text-[14px] inline-block rounded-md overflow-hidden px-1.5">
             <div className="flex items-end">
-               <div className="mr-1 px-1 py-1.5">
-                  test
+               <div className="flex items-center mr-1 px-1 py-1.5">
+                  <div className="mr-1.5">
+                     <svg viewBox="0 0 24 24" height="24" width="24" preserveAspectRatio="xMidYMid meet" className=""
+                          fill="none">
+                        <path fillRule="evenodd" clipRule="evenodd"
+                              d="M7.75897 6.43054C8.93584 5.533 10.4057 5 12 5C15.866 5 19 8.13401 19 12C19 13.5943 18.467 15.0642 17.5695 16.241L7.75897 6.43054ZM6.35707 7.85707C5.50399 9.01706 5 10.4497 5 12C5 15.866 8.13401 19 12 19C13.5503 19 14.9829 18.496 16.1429 17.6429L6.35707 7.85707ZM12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3Z"
+                              fill="currentColor"></path>
+                     </svg>
+                  </div>
+
+                  <div className="italic">
+                     You deleted this message
+                  </div>
                </div>
                <div className="flex items-center py-0.5 text-[hsla(0,0%,100%,0.6)]">
                   <div className="mr-1 text-[12px]">
-                     100
-                  </div>
-                  <div>
-                     <svg width="16" height="11" viewBox="0 0 16 11" fill="none" className="">
-                        <path
-                           d="M11.071.653a.457.457 0 0 0-.304-.102.493.493 0 0 0-.381.178l-6.19 7.636-2.405-2.272a.463.463 0 0 0-.336-.146.47.47 0 0 0-.343.146l-.311.31a.445.445 0 0 0-.14.337c0 .136.047.25.14.343l2.996 2.996a.724.724 0 0 0 .501.203.697.697 0 0 0 .546-.266l6.646-8.417a.497.497 0 0 0 .108-.299.441.441 0 0 0-.19-.374L11.07.653Zm-2.45 7.674a15.31 15.31 0 0 1-.546-.355.43.43 0 0 0-.317-.12.46.46 0 0 0-.362.158l-.292.33a.482.482 0 0 0 .013.666l1.079 1.073c.135.135.3.203.495.203a.699.699 0 0 0 .552-.267l6.62-8.391a.446.446 0 0 0 .109-.298.487.487 0 0 0-.178-.375l-.355-.273a.487.487 0 0 0-.673.076L8.62 8.327Z"
-                           fill="currentColor"></path>
-                     </svg>
+                     {time}
                   </div>
                </div>
             </div>
@@ -266,11 +269,12 @@ const DeletedMessage = () => {
 }
 
 export default function MessageWrapper(value) {
-   if(value?.deleted) {
-      return <DeletedMessage />
-   }
    let time = new Date(value.time)
    time = time.getHours() + ":" + (time.getMinutes() <= 9 ? '0' + time.getMinutes() : time.getMinutes())
+
+   if(value?.deleted) {
+      return <DeletedMessage time={time} />
+   }
 
    switch (value.type) {
       case "video":

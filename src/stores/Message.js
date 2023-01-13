@@ -194,9 +194,9 @@ const slice = createSlice({
                break
             case 1: // delete for everyone
                contact.messages.find(message => message.id === action.payload.messageID)["deleted"] = true
-
-               localStorage.setItem("messages", JSON.stringify(current(state.messages)))
          }
+
+         localStorage.setItem("messages", JSON.stringify(current(state.messages)))
       }
    }
 })

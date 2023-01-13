@@ -11,18 +11,40 @@ export default function Messages({messages = []}) {
       }
    })
 
-
+   function handleScroll(e) {
+      //console.log(e.currentTarget.scrollTop)
+      //console.log(e.currentTarget.offsetHeight)
+   }
 
    return (
       <div className="Messages max-h-full w-full relative bg-[#0b141a] border-l border-[rgba(233,237,239,0.12)]">
          <div className="absolute w-full h-full bg-messagesBg bg-repeat bg-[#080a0a] opacity-[0.06]"></div>
-         <div ref={messageListWrapper} className="w-full overflow-y-scroll max-h-full scrollbar">
+         <div ref={messageListWrapper} className="relative w-full overflow-y-scroll max-h-full scrollbar"
+              onScroll={handleScroll}>
+            <div className="sticky top-5 left-0 flex justify-center hidden">
+               <div className="bg-[#182229] rounded-[7.5px] px-3 py-1.5 text-[#8696a0] text-[12.5px]">
+                  TODAY
+               </div>
+            </div>
             <div ref={messageList}
                  className="MessageList max-h-full flex flex-col justify-end h-full py-5 relative gap-y-0.5">
                {
-                  messages.messages?.map((value, index) =>
-                     <MessageWrapper key={index} {...value} />
-                  )
+                  messages.messages?.map((value, index) => {
+                     let data = [];
+
+                     let time = new Date(value.time)
+                     let lastTime = time;
+                     time = time.getDay() + " - " + time.getMonth()
+                     console.log(time)
+                     return <>
+                        <div className="flex justify-center">
+                           <div className="bg-[#182229] rounded-[7.5px] px-3 py-1.5 text-[#8696a0] text-[12.5px]">
+                              TODAY
+                           </div>
+                        </div>
+                        <MessageWrapper key={index} {...value} />
+                     </>
+                  })
                }
             </div>
          </div>
