@@ -8,19 +8,31 @@ let messages = [
          {
             "id": UUID(),
             "message": "aaa",
-            "time": 1668355783752,
+            "time": 1673373536000,
             "status": "sended"
          },
          {
             "id": UUID(),
             "message": "aaa",
-            "time": 1668355783752,
+            "time": 1673805536000,
+            "status": "received"
+         },
+         {
+            "id": UUID(),
+            "message": "aaa",
+            "time": 1673805536000,
+            "status": "received"
+         },
+         {
+            "id": UUID(),
+            "message": "aaa",
+            "time": 1673805536000,
             "status": "received"
          },
          {
             "id": UUID(),
             "message": "im okkk",
-            "time": 1668355783752,
+            "time": 1674237536000,
             "status": "received"
          }
       ]
