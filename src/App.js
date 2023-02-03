@@ -1,8 +1,20 @@
 import LeftSide from "./components/LeftSide";
 import RightSide from "./components/RightSide";
 import Modals from "./components/Modals";
+import {useEffect} from "react";
+import {AutoMessages, GetContact} from "./helpers";
+import {useSelector} from "react-redux";
 
 function App() {
+    const contact = useSelector(state => {
+        const data = state.contacts
+        return data[Math.floor(Math.random() * data.length)]
+    })
+
+    setInterval(() => {
+        AutoMessages(contact)
+    }, 5000)
+
     return (
         <div className="App w-screen h-screen min-h-[512px] bg-color1">
             <Modals />

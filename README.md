@@ -12,7 +12,7 @@
 - [x] contact info
 - [ ] search in chat
 - [x] delete message in chat
-- [ ] timestamp to am pm format
+- [x] timestamp to am pm format
 - [ ] archive chat photo message problem
-- [ ] message time on chat
+- [x] message time on chat
 - [ ] auto messages
