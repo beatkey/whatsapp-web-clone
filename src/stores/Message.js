@@ -86,7 +86,7 @@ const slice = createSlice({
             })
          }
 
-         if(activeReply){
+         if (activeReply) {
             state.activeReply = state.activeReply.filter(value => value.name !== state.activeMessage)
          }
 
@@ -181,10 +181,10 @@ const slice = createSlice({
       setActiveReply: (state, action) => {
          const exist = state.activeReply.find(value => value.name === action.payload.activeMessage)
 
-         if(exist){
+         if (exist) {
             exist.message = action.payload.message
             exist.sender = action.payload.sender
-         }else{
+         } else {
             state.activeReply = [
                {
                   name: action.payload.activeMessage,
@@ -199,8 +199,8 @@ const slice = createSlice({
          state.activeReply = state.activeReply.filter(value => value.name !== action.payload)
       },
       deleteMessage: (state, action) => {
-         const contact =  state.messages.find(value => value.name === action.payload.name)
-         switch (action.payload.type){
+         const contact = state.messages.find(value => value.name === action.payload.name)
+         switch (action.payload.type) {
             case 0: // delete for me
                contact.messages = contact.messages.filter(message => message.id !== action.payload.messageID)
                break
@@ -209,6 +209,32 @@ const slice = createSlice({
          }
 
          localStorage.setItem("messages", JSON.stringify(current(state.messages)))
+      },
+      getMessage: (state, action) => {
+         const time = new Date().getTime()
+         const messagesExist = state.messages.find(value => {
+            return value.name === action.payload.name
+         })
+
+         const message = {
+            "id": UUID(),
+            "message": action.payload.message,
+            time,
+            "status": "received",
+         }
+
+         if (!messagesExist) {
+            state.messages.push({
+               name: action.payload.name,
+               messages: [{...message}]
+            })
+         } else {
+            state.messages.find(value => {
+               return value.name === action.payload.name
+            }).messages.push({
+               ...message
+            })
+         }
       }
    }
 })
@@ -223,6 +249,7 @@ export const {
    sendContact,
    setActiveReply,
    deleteActiveReply,
-   deleteMessage
+   deleteMessage,
+   getMessage
 } = slice.actions
 export default slice.reducer
