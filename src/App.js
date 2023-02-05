@@ -1,17 +1,10 @@
 import LeftSide from "./components/LeftSide";
 import RightSide from "./components/RightSide";
 import Modals from "./components/Modals";
-import {useEffect} from "react";
-import {AutoMessages, GetContact} from "./helpers";
-import {useSelector} from "react-redux";
+import {AutoMessages} from "./helpers";
 
 function App() {
-   const contact = useSelector(state => {
-      const data = state.contacts
-      return data[Math.floor(Math.random() * data.length)]
-   })
-
-   AutoMessages(contact)
+   AutoMessages()
 
    return (
       <div className="App w-screen h-screen min-h-[512px] bg-color1">

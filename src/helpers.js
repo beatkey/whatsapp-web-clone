@@ -1,6 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import {getMessage} from "./stores/Message";
 import {useEffect} from "react";
+import {disableTyping, enableTyping} from "./stores/Contacts";
 
 export const GetContact = (name) => {
    return useSelector(state => state.contacts).find(contact => contact.name === name)
@@ -10,10 +11,17 @@ export const UUID = () => {
    return crypto.randomUUID();
 };
 
-export const AutoMessages = (contact) => {
+export const AutoMessages = () => {
    const dispatch = useDispatch()
 
+   const contact = useSelector(state => {
+      const data = state.contacts
+      return data[Math.floor(Math.random() * data.length)]
+   })
+
    useEffect(() => {
+      dispatch(enableTyping(contact.name))
+
       const interval = setInterval(() => {
          async function getQuote() {
             const res = await fetch('https://dummyjson.com/quotes/random')
@@ -27,29 +35,12 @@ export const AutoMessages = (contact) => {
                   "message": data.quote
                }
                dispatch(getMessage(payload))
-
-               const alert = new Audio("/web_whatsapp.mp3")
-
-               if (!("Notification" in window)) {
-                  alert("This browser does not support Desktop notifications");
-               }
-
-               if (Notification.permission === "granted") {
-                  alert.play()
-               }
-
-               if (Notification.permission !== "denied") {
-                  Notification.requestPermission((permission) => {
-                     if (permission === "granted") {
-                        alert.play()
-                     }
-                  });
-               }
+               //dispatch(disableTyping(contact.name))
             })
             .catch(err => console.error(err))
       }, 5000)
 
 
       return () => clearInterval(interval)
-   }, [])
+   }, [contact])
 }

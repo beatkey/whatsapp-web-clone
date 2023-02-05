@@ -58,6 +58,7 @@ export default function Message({value, activeMessageHandle, activeMessage}) {
          time,
          status: value.messages.at(-1).status,
          deleted: value.messages.at(-1)?.deleted,
+         typing: value.typing,
       }
    }
 
@@ -68,6 +69,63 @@ export default function Message({value, activeMessageHandle, activeMessage}) {
       "Delete Chat",
       value?.pinned ? "Unpin Chat" : "Pin Chat"
    ]
+
+   const NotifyCount = () => {
+      const unreadedCount = value.messages.reduce((pre, curr) => {
+         if (curr.readed !== undefined && curr.readed) {
+            pre++
+         }
+         return pre;
+      }, 0)
+      if (unreadedCount === 0) {
+         return
+      }
+      return <div className="w-[20px] h-[20px] bg-[#00a884] rounded-full text-[#111b21] text-sm text-center">
+         {unreadedCount}
+      </div>
+   }
+
+   const MessageDetail = () => {
+      if (messageDetail) {
+         if(messageDetail?.typing){
+            return <div className="text-[#00a884]">Typing...</div>
+         }
+         if (messageDetail?.deleted){
+            return <div className="flex items-center">
+               <div className="mr-1">
+                  You:
+               </div>
+               <div>
+                  <svg viewBox="0 0 24 24" height="20" width="20" preserveAspectRatio="xMidYMid meet"
+                       className="" fill="none">
+                     <path fillRule="evenodd" clipRule="evenodd"
+                           d="M7.75897 6.43054C8.93584 5.533 10.4057 5 12 5C15.866 5 19 8.13401 19 12C19 13.5943 18.467 15.0642 17.5695 16.241L7.75897 6.43054ZM6.35707 7.85707C5.50399 9.01706 5 10.4497 5 12C5 15.866 8.13401 19 12 19C13.5503 19 14.9829 18.496 16.1429 17.6429L6.35707 7.85707ZM12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3Z"
+                           fill="currentColor"></path>
+                  </svg>
+               </div>
+               <div className="italic">
+                  You deleted this message
+               </div>
+            </div>
+         }else{
+            return <>
+               <Status type={messageDetail.status}/>
+               {(() => {
+                  switch (messageDetail?.type) {
+                     case "video":
+                        return "Video"
+                     case "image":
+                        return "Image"
+                     default:
+                        return <div className="TextLineClamp1">{messageDetail.message}</div>
+                  }
+               })()}
+            </>
+         }
+      } else {
+         return "Click and start a chat"
+      }
+   }
 
    return (
       <div onClick={() => activeMessageHandle(value.name)}
@@ -87,47 +145,12 @@ export default function Message({value, activeMessageHandle, activeMessage}) {
                   {messageDetail && messageDetail.time}
                </div>
             </div>
-            <div className="Detail relative flex justify-between text-[#8696a0] text-[14px]">
-               <div className="flex items-center">
-                  {
-                     messageDetail ?
-                        messageDetail?.deleted ?
-                           <div className="flex items-center">
-                              <div className="mr-1">
-                                 You:
-                              </div>
-                              <div>
-                                 <svg viewBox="0 0 24 24" height="20" width="20" preserveAspectRatio="xMidYMid meet"
-                                      className="" fill="none">
-                                    <path fillRule="evenodd" clipRule="evenodd"
-                                          d="M7.75897 6.43054C8.93584 5.533 10.4057 5 12 5C15.866 5 19 8.13401 19 12C19 13.5943 18.467 15.0642 17.5695 16.241L7.75897 6.43054ZM6.35707 7.85707C5.50399 9.01706 5 10.4497 5 12C5 15.866 8.13401 19 12 19C13.5503 19 14.9829 18.496 16.1429 17.6429L6.35707 7.85707ZM12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3Z"
-                                          fill="currentColor"></path>
-                                 </svg>
-                              </div>
-                              <div className="italic">
-                                 You deleted this message
-                              </div>
-                           </div>
-                           :
-                           <>
-                              <Status type={messageDetail.status}/>
-                              {(() => {
-                                 switch (messageDetail?.type) {
-                                    case "video":
-                                       return "Video"
-                                    case "image":
-                                       return "Image"
-                                    default:
-                                       return messageDetail.message
-                                 }
-                              })()}
-                           </>
-                        :
-                        "Click and start a chat"
-                  }
+            <div className="Detail relative grid grid-cols-[auto_auto] justify-between text-[#8696a0] text-[14px]">
+               <div className="flex items-center max-w-full mr-2">
+                  <MessageDetail/>
                </div>
                <div className="flex items-center gap-1">
-
+                  <NotifyCount/>
                   {
                      value?.muted &&
                      <div className="mr-0.5">

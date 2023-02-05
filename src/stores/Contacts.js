@@ -68,6 +68,13 @@ const slice = createSlice({
 
          localStorage.setItem("contacts", JSON.stringify(current(state)))
       },
+      enableTyping: (state, action) => {
+         state.find(value => value.name === action.payload)["typing"] = true
+      },
+      disableTyping: (state, action) => {
+         console.log(action.payload)
+         state.find(value => value.name === action.payload)["typing"] = false
+      },
    }
 })
 
@@ -77,6 +84,8 @@ export const {
    pinContact,
    unPinContact,
    blockContact,
-   unBlockContact
+   unBlockContact,
+   enableTyping,
+   disableTyping
 } = slice.actions
 export default slice.reducer

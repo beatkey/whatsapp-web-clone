@@ -57,6 +57,13 @@ const slice = createSlice({
    reducers: {
       setActiveMessage: (state, action) => {
          state.activeMessage = action.payload
+
+         const contact = state.messages.find(value => value.name === action.payload)
+         contact.messages.filter(message => {
+            message.readed = false
+         })
+
+         localStorage.setItem("messages", JSON.stringify(current(state.messages)))
       },
       sendMessage: (state, action) => {
          const time = new Date().getTime()
@@ -66,11 +73,11 @@ const slice = createSlice({
          })
 
          const message = {
-            "id": UUID(),
-            "message": action.payload,
+            id: UUID(),
+            message: action.payload,
             time,
-            "status": "sended",
-            "reply": activeReply && activeReply
+            status: "sended",
+            reply: activeReply && activeReply,
          }
 
          if (!messagesExist) {
@@ -217,16 +224,17 @@ const slice = createSlice({
          })
 
          const message = {
-            "id": UUID(),
-            "message": action.payload.message,
+            id: UUID(),
+            message: action.payload.message,
             time,
-            "status": "received",
+            status: "received",
+            readed: state.activeMessage !== action.payload.name
          }
 
          if (!messagesExist) {
             state.messages.push({
                name: action.payload.name,
-               messages: [{...message}]
+               messages: [{...message}],
             })
          } else {
             state.messages.find(value => {
@@ -250,6 +258,6 @@ export const {
    setActiveReply,
    deleteActiveReply,
    deleteMessage,
-   getMessage
+   getMessage,
 } = slice.actions
 export default slice.reducer
