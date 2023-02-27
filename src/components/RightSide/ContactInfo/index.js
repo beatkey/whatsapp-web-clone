@@ -1,19 +1,17 @@
 import {useDispatch, useSelector} from "react-redux";
 import {UserAvatar} from "../../Global";
 import {GetContact} from "../../../helpers";
-import {closeContactInfo} from "../../../stores/General";
 import {openModal} from "../../../stores/Modal";
 
-export default function ContactInfo() {
+export default function ContactInfo({setRightSide}) {
    const dispatch = useDispatch()
    const activeMessage = useSelector(state => state.message.activeMessage)
    const contact = GetContact(activeMessage)
-   console.log(contact)
 
    return (
       <div className="w-[75%] grid grid-rows-[60px_calc(100%-60px)] border-l bg-[#0b1317] border-[#8696a0]">
          <div className="Head flex items-center bg-[#202c33] p-5 py-4 text-[16px] text-[#d1d7db]">
-            <div onClick={() => dispatch(closeContactInfo())} className="cursor-pointer mr-5">
+            <div onClick={() => setRightSide(false)} className="cursor-pointer mr-5">
                <svg viewBox="0 0 24 24" height="24" width="24" preserveAspectRatio="xMidYMid meet" className=""
                     fill="#8696a0" enableBackground="new 0 0 24 24" xmlSpace="preserve">
                   <path enableBackground="new"

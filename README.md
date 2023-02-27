@@ -15,4 +15,4 @@
 - [x] timestamp to am pm format
 - [ ] archive chat photo message problem
 - [x] message time on chat
-- [ ] auto messages
+- [x] auto messages

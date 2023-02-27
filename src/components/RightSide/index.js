@@ -1,28 +1,33 @@
 import Default from "./Default";
 import Message from "./Message";
 import ContactInfo from "./ContactInfo";
+import SearchChat from "./SearchChat";
 
 import {useSelector} from "react-redux";
+import {useState} from "react";
 
 export default function RightSide() {
-    const activeMessage = useSelector(state => state.message.activeMessage)
-    const activeContactInfo = useSelector(state => state.general.contactInfo)
-    let messages = useSelector(state => state.message.messages).find(value => {
-        return value.name === activeMessage
-    })
+   const activeMessage = useSelector(state => state.message.activeMessage)
+   const [rightSide, setRightSide] = useState(false)
+   let messages = useSelector(state => state.message.messages).find(value => {
+      return value.name === activeMessage
+   })
 
-    return (
-        <div className="RightSide h-full w-[70%] bg-[#222e35]">
-            {
-                activeMessage == null
-                    ?
-                    <Default/>
-                    :
-                    <div className="flex h-full">
-                        <Message messages={messages}/>
-                        {activeContactInfo && <ContactInfo />}
-                    </div>
-            }
-        </div>
-    )
+   const RightWrapper = () => {
+      switch (rightSide) {
+         case "contactInfo":
+            return <ContactInfo setRightSide={setRightSide}/>
+         case "search":
+            return <SearchChat setRightSide={setRightSide} />
+      }
+   }
+
+   if (!activeMessage) {
+      return <Default/>
+   } else {
+      return <div className="flex h-full">
+         <Message rightSide={rightSide} setRightSide={setRightSide} messages={messages}/>
+         <RightWrapper/>
+      </div>
+   }
 }

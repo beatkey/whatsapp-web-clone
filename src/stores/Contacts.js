@@ -72,7 +72,6 @@ const slice = createSlice({
          state.find(value => value.name === action.payload)["typing"] = true
       },
       disableTyping: (state, action) => {
-         console.log(action.payload)
          state.find(value => value.name === action.payload)["typing"] = false
       },
    }
