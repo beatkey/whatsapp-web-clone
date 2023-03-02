@@ -1,10 +1,22 @@
 import {useEffect, useRef, useState} from "react";
 import MessageWrapper from "./MessageWrapper";
+import {useSelector} from "react-redux";
 
 export default function Messages({messages = []}) {
     const messageListWrapper = useRef(null)
     const messageList = useRef(null)
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const moveToMessage = useSelector(state => state.general.moveToMessage)
+
+    useEffect(() => {
+        console.log(messageList.current.children)
+    })
+
+    useEffect(() => {
+        if (moveToMessage !== null){
+            console.log(moveToMessage)
+        }
+    }, [moveToMessage])
 
     useEffect(() => {
         if (messageListWrapper.current) {
@@ -75,14 +87,14 @@ export default function Messages({messages = []}) {
                     {
                         Object.entries(filteredMessages).map(([date, messages], index) => {
                             return <div key={index}>
-                                <div className="flex justify-center">
+                                <div className="flex justify-center my-4">
                                     <div className="bg-[#182229] rounded-[7.5px] px-3 py-1.5 text-[#8696a0] text-[12.5px]">
                                         {date}
                                     </div>
                                 </div>
                                 {
                                     messages.map((value, index) => {
-                                        return <div key={index} className="my-0.5">
+                                        return <div data-id={value.id} key={index} className="my-0.5">
                                             <MessageWrapper {...value} />
                                         </div>
                                     })

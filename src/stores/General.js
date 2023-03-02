@@ -1,7 +1,8 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
-   contactInfo: null
+   contactInfo: null,
+   moveToMessage: null
 }
 
 const slice = createSlice({
@@ -13,12 +14,16 @@ const slice = createSlice({
       },
       setContactInfo: (state, action) => {
          state.contactInfo = action.payload
+      },
+      setMoveToMessage: (state, action) => {
+         state.moveToMessage = action.payload
       }
    }
 })
 
 export const {
    closeContactInfo,
-   setContactInfo
+   setContactInfo,
+   setMoveToMessage
 } = slice.actions
 export default slice.reducer

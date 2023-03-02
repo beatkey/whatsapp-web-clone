@@ -1,5 +1,7 @@
-import {useState} from "react";
-import {useSelector} from "react-redux";
+import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {Status} from "../../Global";
+import {setMoveToMessage} from "../../../stores/General";
 
 const Input = ({filterText, setFilterText}) => {
    return (
@@ -35,8 +37,47 @@ const Input = ({filterText, setFilterText}) => {
 }
 
 export default function SearchChat({setRightSide}) {
+   const dispatch = useDispatch()
    const activeMessage = useSelector(state => state.message.activeMessage)
+   const messages = useSelector(state => {
+      return  state.message.messages.find(value => value.name === activeMessage).messages
+   })
    const [filterText, setFilterText] = useState("")
+   const [searchMessages, setSearchMessages] = useState(null)
+
+   useEffect(() => {
+      if (filterText.length > 0){
+         setSearchMessages(messages.filter(value => value.message.search(new RegExp(filterText, "i")) > -1))
+      }
+   }, [filterText])
+
+   function moveToMessage(id){
+      console.log(id)
+      console.log(document.querySelector(`.Messages .MessagesList `))
+   }
+
+   const SearchMessagesWrapper = () => {
+      if(filterText.length === 0){
+         return "";
+      }
+
+      return searchMessages == null || searchMessages.length === 0 ?
+         <div className="text-center mt-10 text-[#667781] text-sm">
+            No messages found
+         </div>
+         :
+         searchMessages.map((value, index) => (
+            <div onClick={() => moveToMessage(value.id)} key={index} className="cursor-pointer hover:bg-[#202c33] flex flex-col p-3 h-[72px] border-b border-[rgba(134,150,160,0.15)] text-[#8696a0]">
+               <div className="text-xs mb-1">{new Date(value.time).toLocaleDateString("en-GB", {day: 'numeric', month: 'numeric', year: 'numeric'})}</div>
+               <div className="TextLineClamp1 text-sm flex items-center">
+                  <div className="inline-block">
+                     <Status type="sended" />
+                  </div>
+                  {value.message}
+               </div>
+            </div>
+         ))
+   }
 
    return (
       <div className="w-[75%] grid grid-rows-[60px_60px_calc(100%-120px)] border-l bg-[#111b21] border-[#111b21]">
@@ -54,10 +95,16 @@ export default function SearchChat({setRightSide}) {
             <Input filterText={filterText} setFilterText={setFilterText} />
          </div>
          <div className="overflow-y-scroll overflow-x-hidden overflow scrollbar">
-            <div className="flex flex-col p-3 h-[72px] border-t border-[rgba(134,150,160,0.15)] text-[#8696a0]">
-               <div className="text-xs">Friday</div>
-               <div className="TextLineClamp1 text-sm">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi deleniti earum eius esse, facere nemo sit veniam! Debitis dolorem inventore nobis non odit. Ad facere quas quis quos. Quidem, repudiandae?</div>
-            </div>
+            <SearchMessagesWrapper />
+            {/*<div className="cursor-pointer hover:bg-[#202c33] flex flex-col p-3 h-[72px] border-b border-[rgba(134,150,160,0.15)] text-[#8696a0]">
+               <div className="text-xs mb-1">Friday</div>
+               <div className="TextLineClamp1 text-sm flex items-center">
+                  <div className="inline-block">
+                     <Status type="sended" />
+                  </div>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi deleniti earum eius esse, facere nemo sit veniam! Debitis dolorem inventore nobis non odit. Ad facere quas quis quos. Quidem, repudiandae?
+               </div>
+            </div>*/}
             <div className="text-center py-16 text-[#667781] text-sm">
                Search for messages with {activeMessage}
             </div>
