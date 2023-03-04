@@ -51,11 +51,6 @@ export default function SearchChat({setRightSide}) {
       }
    }, [filterText])
 
-   function moveToMessage(id){
-      console.log(id)
-      console.log(document.querySelector(`.Messages .MessagesList `))
-   }
-
    const SearchMessagesWrapper = () => {
       if(filterText.length === 0){
          return "";
@@ -67,7 +62,7 @@ export default function SearchChat({setRightSide}) {
          </div>
          :
          searchMessages.map((value, index) => (
-            <div onClick={() => moveToMessage(value.id)} key={index} className="cursor-pointer hover:bg-[#202c33] flex flex-col p-3 h-[72px] border-b border-[rgba(134,150,160,0.15)] text-[#8696a0]">
+            <div onClick={() => dispatch(setMoveToMessage(value.id))} key={index} className="cursor-pointer hover:bg-[#202c33] flex flex-col p-3 h-[72px] border-b border-[rgba(134,150,160,0.15)] text-[#8696a0]">
                <div className="text-xs mb-1">{new Date(value.time).toLocaleDateString("en-GB", {day: 'numeric', month: 'numeric', year: 'numeric'})}</div>
                <div className="TextLineClamp1 text-sm flex items-center">
                   <div className="inline-block">

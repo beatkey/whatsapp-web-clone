@@ -69,7 +69,7 @@ const LeftText = ({message, time}) => {
    return (
       <div className="MessageWrapper flex justify-start pl-[9%] pr-[9%]">
          <div
-            className="group Message relative overflow-hidden bg-[#202c33] text-[#e9edef] text-[14px] inline-block rounded-md px-1.5 flex items-end">
+            className="group transition-all duration-200 Message relative overflow-hidden bg-[#202c33] text-[#e9edef] text-[14px] inline-block rounded-md px-1.5 flex items-end">
             <div className="mr-1 px-1 py-1.5">
                {message}
             </div>

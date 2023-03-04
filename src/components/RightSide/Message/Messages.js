@@ -9,12 +9,18 @@ export default function Messages({messages = []}) {
     const moveToMessage = useSelector(state => state.general.moveToMessage)
 
     useEffect(() => {
-        console.log(messageList.current.children)
-    })
-
-    useEffect(() => {
         if (moveToMessage !== null){
-            console.log(moveToMessage)
+            const messageListChildren = messageList.current.children
+            for (const value of messageListChildren){
+                const ele = value.querySelector(`[data-id='${moveToMessage}']`)
+                if(ele){
+                    messageListWrapper.current.scrollTop = ele.offsetTop - 100
+                    ele.children[0].children[0].classList.add("bg-[#3e5764]")
+                    setTimeout(() => {
+                        ele.children[0].children[0].classList.remove("bg-[#3e5764]")
+                    }, 500)
+                }
+            }
         }
     }, [moveToMessage])
 
@@ -22,7 +28,7 @@ export default function Messages({messages = []}) {
         if (messageListWrapper.current) {
             messageListWrapper.current.scrollTop = messageList.current.clientHeight
         }
-    })
+    }, [])
 
     const filteredMessages = messages.messages?.reduce((acc, curr) => {
         const date = new Date(curr.time)
