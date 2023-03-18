@@ -114,8 +114,8 @@ export default function Message({value, activeMessageHandle, activeMessage}) {
                   switch (messageDetail?.type) {
                      case "video":
                         return "Video"
-                     case "image":
-                        return "Image"
+                     case "photo":
+                        return "Photo"
                      default:
                         return <div className="TextLineClamp1">{messageDetail.message}</div>
                   }

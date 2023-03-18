@@ -4,7 +4,8 @@ const initialState = {
    activeModal: null,
    deleteMessageData: {
       name: null,
-      messageID: null
+      messageID: null,
+      sender: false
    }
 }
 
@@ -21,6 +22,7 @@ const slice = createSlice({
       setDeleteMessageID: (state, action) => {
          state.deleteMessageData.name = action.payload.activeMessage
          state.deleteMessageData.messageID = action.payload.id
+         state.deleteMessageData.sender = action.payload.sender || false
       }
    }
 })

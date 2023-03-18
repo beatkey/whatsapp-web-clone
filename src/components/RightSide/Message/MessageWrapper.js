@@ -44,7 +44,7 @@ const Image = ({base64, time}) => {
    )
 }
 
-const LeftText = ({message, time}) => {
+const LeftText = ({id, message, time}) => {
    const dispatch = useDispatch()
    const activeMessage = useSelector(state => state.message.activeMessage)
    const [anchorEl, setAnchorEl] = useState(null);
@@ -60,9 +60,14 @@ const LeftText = ({message, time}) => {
             dispatch(setActiveReply({activeMessage, message, sender: activeMessage}))
             break
          case 2: // react to message
+            break
          case 3: // forward to message
+            break
          case 4: // star message
+            break
          case 5: // delete message
+            dispatch(setDeleteMessageID({activeMessage, id, sender: true}))
+            dispatch(openModal("deleteMessage"))
       }
    };
 
@@ -279,7 +284,7 @@ export default function MessageWrapper(value) {
    switch (value.type) {
       case "video":
          return
-      case "image":
+      case "photo":
          return <Image base64={value.message} time={time}/>
       case "contact":
          return <Contact message={value.message} time={time}/>

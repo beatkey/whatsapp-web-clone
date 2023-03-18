@@ -33,7 +33,7 @@ export default function Actions() {
 
       reader.readAsDataURL(file)
       reader.addEventListener("load", () => {
-         const fileType = file.type.split("/")[0]
+         const fileType = "photo"
          const fileUrl = reader.result
          dispatch(sendFile({
             fileType,

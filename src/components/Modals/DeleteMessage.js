@@ -7,6 +7,7 @@ export default function DeleteMessage() {
    const dispatch = useDispatch()
    const activeMessage = useSelector(state => state.message.activeMessage)
    const deleteMessageData = useSelector(state => state.modal.deleteMessageData)
+   console.log(deleteMessageData)
 
    function closeModalHandle() {
       dispatch(closeModal())
@@ -30,11 +31,13 @@ export default function DeleteMessage() {
                Delete message?
             </div>
             <div className="Actions flex flex-col items-end gap-3">
-               <button
-                  onClick={deleteForEveryone}
-                  className="p-[10px_24px] text-[#00a884] rounded-[3px] border tracking-[1.25px] text-[14px] border-[rgba(134,150,160,0.15)] hover:bg-[rgba(233,237,239,0.05)] hover:text-[#06cf9c] transition-all">
-                  DELETE FOR EVERYONE
-               </button>
+               {!deleteMessageData.sender &&
+                  <button
+                     onClick={deleteForEveryone}
+                     className="p-[10px_24px] text-[#00a884] rounded-[3px] border tracking-[1.25px] text-[14px] border-[rgba(134,150,160,0.15)] hover:bg-[rgba(233,237,239,0.05)] hover:text-[#06cf9c] transition-all">
+                     DELETE FOR EVERYONE
+                  </button>
+               }
                <button
                   onClick={deleteForMe}
                   className="p-[10px_24px] text-[#00a884] rounded-[3px] border tracking-[1.25px] text-[14px] border-[rgba(134,150,160,0.15)] hover:bg-[rgba(233,237,239,0.05)] hover:text-[#06cf9c] transition-all">
