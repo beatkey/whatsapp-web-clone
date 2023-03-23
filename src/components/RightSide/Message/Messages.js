@@ -91,7 +91,7 @@ export default function Messages({messages = []}) {
             <div ref={messageList}
                  className="MessageList max-h-full flex flex-col justify-end h-full py-5 relative gap-y-0.5">
                {
-                  Object.entries(filteredMessages).map(([date, messages], index) => {
+                  filteredMessages && Object.entries(filteredMessages).map(([date, messages], index) => {
                      return <div key={index}>
                         <div className="flex justify-center my-4">
                            <div className="bg-[#182229] rounded-[7.5px] px-3 py-1.5 text-[#8696a0] text-[12.5px]">

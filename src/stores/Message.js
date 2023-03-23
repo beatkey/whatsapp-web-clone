@@ -59,7 +59,7 @@ const slice = createSlice({
          state.activeMessage = action.payload
 
          const contact = state.messages.find(value => value.name === action.payload)
-         contact.messages.filter(message => {
+         contact?.messages.filter(message => {
             message.readed = false
          })
 
