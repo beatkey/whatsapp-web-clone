@@ -13,10 +13,11 @@
 - [x] search in chat
 - [x] delete message in chat
 - [x] timestamp to am pm format
-- [ ] archive chat photo message problem
+- [x] archive chat photo message problem
 - [x] message time on chat
 - [x] auto messages
 - [x] delete message from sender
-- [ ] reply to sender message
-- [ ] error in search chat
-- [ ] timestamp error in archive 
+- [x] reply to sender message
+- [x] error in search chat (disable photo search)
+- [x] after search in chat focus problem
+- [x] timestamp error in archive 

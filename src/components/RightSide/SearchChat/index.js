@@ -1,9 +1,13 @@
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {Status} from "../../Global";
 import {setMoveToMessage} from "../../../stores/General";
 
 const Input = ({filterText, setFilterText}) => {
+   const input = useCallback(inputElement => {
+      inputElement && inputElement.focus()
+   })
+
    return (
       <div className="Search flex items-center px-3 py-2">
          <div className="InputWrapper bg-color2 w-full px-3 py-1.5 flex items-center rounded-lg">
@@ -25,6 +29,7 @@ const Input = ({filterText, setFilterText}) => {
             </div>
             <div className="Input w-full">
                <input
+                  ref={input}
                   onChange={e => setFilterText(e.target.value)}
                   value={filterText}
                   className="w-full bg-[transparent] outline-none placeholder:text-icon placeholder:text-[14px] text-[#d1d7db] text-[15px]"
@@ -40,7 +45,7 @@ export default function SearchChat({setRightSide}) {
    const dispatch = useDispatch()
    const activeMessage = useSelector(state => state.message.activeMessage)
    const messages = useSelector(state => {
-      return  state.message.messages.find(value => value.name === activeMessage).messages
+      return state.message.messages.find(value => value.name === activeMessage).messages.filter(value => value.type !== "photo")
    })
    const [filterText, setFilterText] = useState("")
    const [searchMessages, setSearchMessages] = useState(null)

@@ -41,9 +41,13 @@ function Contact({contact}) {
 
     let messageDetail = null
     if (contact.messages.length > 0) {
+        let time = new Date(contact.messages.at(-1).time)
+        time = time.getHours() + ":" + (time.getMinutes() <= 9 ? '0' + time.getMinutes() : time.getMinutes())
+
         messageDetail = {
+            type: contact.messages.at(-1)?.type,
             message: contact.messages.at(-1).message,
-            time: contact.messages.at(-1).time,
+            time,
             status: contact.messages.at(-1).status
         }
     }
@@ -72,7 +76,16 @@ function Contact({contact}) {
                             messageDetail ?
                                 <>
                                     <Status type={messageDetail.status}/>
-                                    {messageDetail.message}
+                                    {(() => {
+                                        switch (messageDetail?.type) {
+                                            case "video":
+                                                return "Video"
+                                            case "photo":
+                                                return "Photo"
+                                            default:
+                                                return <div className="TextLineClamp1">{messageDetail.message}</div>
+                                        }
+                                    })()}
                                 </>
                                 :
                                 "Click and start a chat"
